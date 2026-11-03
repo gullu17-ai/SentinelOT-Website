@@ -1,4 +1,4 @@
-export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'http://localhost:3000';
+export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://sentinelot-research-2026.uk592746.chatgpt.site';
 export const isPublicSite = Boolean(process.env.NEXT_PUBLIC_SITE_URL);
 export const views = [
   { id: 'inventory', name: 'Asset Inventory', image: '/media/asset-inventory.png', description: 'See observed endpoints, inferred roles and the protocols they use.', alt: 'Genuine SentinelOT lab asset inventory showing the PLC and HMI with observed protocol and port information.' },

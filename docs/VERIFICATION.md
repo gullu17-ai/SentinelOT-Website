@@ -67,5 +67,5 @@ Checked 3 November 2026 using the production static export in local Chromium, wi
 - Touch gestures are supported by TrackballControls, but no physical touch device was available. Mouse and keyboard interactions were exercised in Chromium.
 - Hardware is procedural concept geometry; physical deployment, thermal behaviour and packet capture performance have not been tested.
 - The missing vulnerability capture and public contact details remain visible notices.
-- No production domain was supplied; the local build uses localhost canonical metadata and noindex until configured. Publication may supply a hosted preview address separately.
+- No production domain was supplied; metadata and sitemap use the confirmed private hosted preview address. Noindex remains the default until a production origin is configured.
 - This is a practical browser/visual check, not a claim of formal accessibility certification or cross-browser certification.

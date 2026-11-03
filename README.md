@@ -23,7 +23,7 @@ The deployable static files are in `out/`. Serve this directory from a separate 
 
 ## Public URL
 
-Copy `.env.example` to `.env.local`, set `NEXT_PUBLIC_SITE_URL` to the real HTTPS origin, then rebuild. Without an origin, localhost metadata and `noindex` intentionally keep a draft from being indexed. Sitemap and robots.txt are generated at build time. Social image is generated locally at `/social-preview.png`.
+Copy `.env.example` to `.env.local`, set `NEXT_PUBLIC_SITE_URL` to the real production HTTPS origin, then rebuild. Without an override, metadata uses the private hosted preview and `noindex` intentionally keeps the draft from being indexed. Sitemap and robots.txt are generated at build time. Social image is generated locally at `/social-preview.png`.
 
 ## Content and missing media
 
