@@ -1,0 +1,1 @@
+export default function NotFound() { return <main className="shell section"><span className="eyebrow">SentinelOT</span><h1 className="text-4xl mb-6">Page not found.</h1><p className="mb-8">This address does not belong to the public product site.</p><a className="button" href="/">Return to SentinelOT</a></main>; }
