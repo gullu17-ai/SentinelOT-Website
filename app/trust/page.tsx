@@ -111,21 +111,21 @@ export default function TrustPage() {
 
         {/* Responsible Vulnerability Disclosure & security.txt */}
         <section className="section shell" style={{ paddingTop: '1rem' }} aria-labelledby="disclosure-heading">
-          <div className="subpage-cta-box" style={{ background: 'var(--dark-bg)', color: 'var(--dark-text)', borderColor: 'var(--dark-border)' }}>
-            <div>
-<h2 id="disclosure-heading" style={{ color: '#fff' }}>Responsible Vulnerability Disclosure Policy</h2>
-              <p style={{ color: 'var(--dark-muted)', maxWidth: '42rem', marginTop: '0.75rem' }}>
+          <div className="subpage-cta-box" style={{ background: 'var(--dark-bg)', color: 'var(--dark-text)', borderColor: 'var(--dark-border)', width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}>
+            <div style={{ width: '100%', maxWidth: '100%', minWidth: 0 }}>
+              <h2 id="disclosure-heading" style={{ color: '#fff' }}>Responsible Vulnerability Disclosure Policy</h2>
+              <p style={{ color: 'var(--dark-muted)', maxWidth: '42rem', marginTop: '0.75rem', overflowWrap: 'anywhere' }}>
                 SentinelOT maintains an active vulnerability disclosure program. If you discover a potential vulnerability in our appliance or public web infrastructure, please report it immediately under our ethical disclosure policy.<br /><br />
-                <strong>Security Contacts:</strong> <code>i232064@isb.nu.edu.pk</code>, <code>i232069@isb.nu.edu.pk</code><br />
+                <strong>Security Contacts:</strong> <code style={{ overflowWrap: 'anywhere', wordBreak: 'break-all' }}>i232064@isb.nu.edu.pk</code>, <code style={{ overflowWrap: 'anywhere', wordBreak: 'break-all' }}>i232069@isb.nu.edu.pk</code><br />
                 <strong>Acknowledgment Window:</strong> Within 24 hours.<br />
                 <strong>Triage & Initial Remediation Assessment:</strong> Within 72 hours.
               </p>
 
-              <div style={{ marginTop: '1.5rem', background: 'var(--dark-surface)', border: '1px solid var(--dark-border)', padding: '1.25rem', borderRadius: '2px' }}>
+              <div style={{ marginTop: '1.5rem', background: 'var(--dark-surface)', border: '1px solid var(--dark-border)', padding: '1.25rem', borderRadius: '2px', width: '100%', maxWidth: '100%', boxSizing: 'border-box', overflow: 'hidden' }}>
                 <span style={{ display: 'block', fontFamily: 'var(--font-mono)', fontSize: '0.75rem', color: 'var(--lime)', marginBottom: '0.5rem' }}>
                   /.well-known/security.txt (RFC 9116)
                 </span>
-                <pre style={{ margin: 0, fontFamily: 'var(--font-mono)', fontSize: '0.8125rem', color: 'var(--dark-muted)', overflowX: 'auto' }}>
+                <pre style={{ margin: 0, fontFamily: 'var(--font-mono)', fontSize: '0.8125rem', color: 'var(--dark-muted)', whiteSpace: 'pre-wrap', wordBreak: 'break-all', overflowWrap: 'anywhere', maxWidth: '100%' }}>
 {`Contact: mailto:i232064@isb.nu.edu.pk
 Contact: mailto:i232069@isb.nu.edu.pk
 Expires: 2027-12-31T23:59:59.000Z
