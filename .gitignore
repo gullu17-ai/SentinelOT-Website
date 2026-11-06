@@ -8,3 +8,4 @@ out/
 .agents/
 .codex/
 .gemini/
+.openai/
