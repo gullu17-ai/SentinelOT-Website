@@ -75,10 +75,10 @@ export default function SolutionsPage() {
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
             {sectors.map(sector => (
-              <article key={sector.num} style={{ background: 'var(--paper)', border: '1px solid var(--line)', padding: '2.5rem', borderRadius: '2px' }}>
+              <article key={sector.num} className="solution-card">
                 <h3 style={{ fontSize: '1.75rem', marginBottom: '1.5rem', color: 'var(--ink)' }}>{sector.name}</h3>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
+                <div className="solution-columns">
                   <div>
                     <strong style={{ display: 'block', fontSize: '0.8125rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--teal)', marginBottom: '0.5rem' }}>
                       Operational Challenge
@@ -117,7 +117,7 @@ export default function SolutionsPage() {
                 Apply for Sector Pilot Access
               </Link>
               <Link href="/technical-docs" className="button outline" style={{ color: 'var(--ink)', borderColor: 'var(--line)' }}>
-                Request Technical Portal Access 🔒
+                Request Technical Portal Access
               </Link>
             </div>
           </div>

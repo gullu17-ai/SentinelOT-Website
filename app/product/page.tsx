@@ -123,7 +123,7 @@ export default function ProductPage() {
               </p>
             </div>
             <div>
-              <Link href="/how-it-works" className="button" style={{ whiteSpace: 'nowrap' }}>
+              <Link href="/how-it-works" className="button">
                 Inspect Signal Flow →
               </Link>
             </div>
@@ -154,7 +154,7 @@ export default function ProductPage() {
             </div>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
               <Link href="/technical-docs" className="button">
-                Request Technical Documentation 🔒
+                Request Technical Documentation
               </Link>
               <Link href="/contact" className="button outline" style={{ color: 'var(--ink)', borderColor: 'var(--line)' }}>
                 Apply for Private Pilot

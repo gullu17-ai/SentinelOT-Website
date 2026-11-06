@@ -92,7 +92,7 @@ export default function CompanyPage() {
               </p>
             </div>
             <div>
-              <Link href="/contact" className="button" style={{ whiteSpace: 'nowrap' }}>
+              <Link href="/contact" className="button">
                 Connect with our Team →
               </Link>
             </div>

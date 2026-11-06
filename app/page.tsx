@@ -216,7 +216,7 @@ export default function Home() {
                 Apply for Private Pilot
               </Link>
               <Link href="/technical-docs" className="button outline" style={{ color: 'var(--ink)', borderColor: 'var(--line)' }}>
-                Request Technical Documentation 🔒
+                Request Technical Documentation
               </Link>
             </div>
           </div>

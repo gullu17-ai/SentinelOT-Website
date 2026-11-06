@@ -58,7 +58,7 @@ export default function TechnicalDocsPage() {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
+          <div className="responsive-card-grid" style={{ marginBottom: '3rem' }}>
             {technicalDocuments.map(doc => (
               <article key={doc.title} style={{ background: 'var(--paper)', border: '1px solid var(--line)', padding: '1.75rem', borderRadius: '2px' }}>
                 <span style={{ fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--teal)', display: 'block', marginBottom: '0.5rem' }}>
@@ -96,7 +96,7 @@ export default function TechnicalDocsPage() {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
+          <div className="steps-grid-3">
             <div style={{ background: 'var(--paper)', border: '1px solid var(--line)', padding: '1.75rem', borderRadius: '2px' }}>
               <h3 style={{ fontSize: '1.0625rem', marginBottom: '0.5rem' }}>1. Submit Work Details</h3>
               <p style={{ fontSize: '0.875rem', lineHeight: '1.6', color: 'var(--muted)' }}>

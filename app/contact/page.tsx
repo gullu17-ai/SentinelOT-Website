@@ -83,7 +83,7 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBlock: '1.5rem' }}>
+          <div className="responsive-card-grid" style={{ marginBlock: '1.5rem' }}>
             <div style={{ background: 'var(--paper)', border: '1px solid var(--line)', padding: '1.75rem', borderRadius: '2px' }}>
               <span style={{ fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--teal)', display: 'block', marginBottom: '0.35rem' }}>Pilot Applications & Hardware Inquiries</span>
               <a href="mailto:i232064@isb.nu.edu.pk" className="text-link" style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9375rem' }}>i232064@isb.nu.edu.pk</a>

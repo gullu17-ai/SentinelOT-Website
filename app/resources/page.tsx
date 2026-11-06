@@ -90,8 +90,8 @@ export default function ResourcesPage() {
               </p>
             </div>
             <div>
-              <Link href="/technical-docs" className="button" style={{ whiteSpace: 'nowrap' }}>
-                Request Portal Access 🔒
+              <Link href="/technical-docs" className="button">
+                Request Portal Access
               </Link>
             </div>
           </div>
