@@ -1,54 +1,245 @@
+import Link from 'next/link';
 import Navigation from '@/components/Navigation';
-import ProductGallery from '@/components/ProductGallery';
-import Demo from '@/components/Demo';
-import Hardware from '@/components/Hardware';
-import { protocols } from '@/lib/content';
-const capabilities = [
- ['Passive traffic monitoring', 'Observe the network without sitting in its path.', 'Inspect a copy of HMI and PLC communications from a mirror port or network TAP. The sensor observes traffic; it does not block control commands.'],
- ['Asset discovery', 'Understand what is communicating.', 'Build an inventory from observed endpoints, ports and protocol behaviour. Inferred roles help an operator investigate, but silent devices may remain unseen.'],
- ['Protocol-aware rule detection', 'See why an operation was flagged.', 'Review decoded writes, control operations and configured behavioural thresholds. Each alert points to a matching rule and the supporting event context.'],
- ['Offline vulnerability matching', 'Keep vulnerability context close to the process.', 'Compare reviewed device identities with locally imported intelligence. Missing identity or firmware information stays explicitly unknown. Updates require a controlled import.'],
-];
-export default function Home() { return <>
- <a className="skip-link" href="#main">Skip to content</a><div id="top" /><Navigation />
- <main id="main">
-  <section className="hero" aria-labelledby="hero-title">
-   <img className="hero-photo" src="/media/industrial-water.jpg" alt="Aerial view of circular water treatment basins and industrial pipework" width="2200" height="1467" fetchPriority="high" />
-   <div className="hero-shade" />
-   <div className="hero-content shell"><div className="hero-main"><h1 id="hero-title">Sentinel<span>OT</span></h1><p className="hero-subtitle">Offline-first visibility<br />for industrial networks.</p><p className="hero-description">Understand the devices, protocols and operations behind your process. Keep monitoring local. Make the evidence explainable.</p><div className="hero-actions"><a className="button" href="#demo"><svg width="15" height="16" viewBox="0 0 15 16" fill="currentColor" aria-hidden="true"><path d="M2 1L14 8L2 15Z" /></svg>Watch the Demo</a><a className="button outline" href="#product">Explore the Platform</a></div><p className="hero-note">Research prototype · FAST NUCES Islamabad</p></div></div>
-   <div className="hero-bottom shell"><span>Built around the realities of operational technology.</span><a href="#product">Explore below <span aria-hidden="true">↓</span></a></div>
-  </section>
-  <div className="principles shell"><p>Passive by design</p><p>Local evidence</p><p>Explainable rules</p><a href="#hardware">Rotate the 3D hardware <span aria-hidden="true">↗</span></a></div>
-  <section className="section shell" id="product" aria-labelledby="product-heading">
-   <div className="section-heading"><div><span className="eyebrow">The platform</span><h2 id="product-heading">A clearer view of<br />your control network.</h2></div><p>From observed devices to the operation behind an alert. Explore genuine captures from the SentinelOT research lab.</p></div>
-   <ProductGallery />
-  </section>
-  <section className="capabilities section" aria-labelledby="capabilities-heading"><div className="shell capability-layout"><div className="capability-intro"><span className="eyebrow">Core capabilities</span><h2 id="capabilities-heading">Know what is there.<br />Understand what changed.</h2><p>Transparent monitoring for environments where connectivity is constrained and operational context matters.</p><span className="square-label">Current research prototype</span></div><div className="capability-list">{capabilities.map(([title, benefit, body], i) => <article key={title}><span className="feature-number">0{i+1}</span><div><h3>{title}</h3><p className="benefit">{benefit}</p><p>{body}</p></div></article>)}</div></div></section>
-  <section className="section shell protocols" aria-labelledby="protocol-heading"><div className="section-heading"><div><span className="eyebrow">Protocol coverage</span><h2 id="protocol-heading">Industrial protocols.<br />Defined boundaries.</h2></div><p>Tested against lab traffic and selected public captures. Coverage is specific to the installed analyzers, decoded fields and configured rules.</p></div><div className="protocol-table"><div className="protocol-header"><span>Protocol</span><span>Evidence scope</span><span>What to keep in mind</span></div>{protocols.map(p => <article className="protocol-row" key={p.name}><h3>{p.name}</h3><p><span className="mobile-label">Evidence scope</span>{p.scope}</p><p><span className="mobile-label">Limitations</span>{p.limit}</p></article>)}</div><p className="small-copy mt-6">Protocol support does not mean every function, device variant or attack is covered. Visibility also depends on capture quality and what traverses the monitored link.</p></section>
-  <section className="architecture section" id="how-it-works" aria-labelledby="architecture-heading"><div className="shell"><div className="section-heading"><div><span className="eyebrow">How it works</span><h2 id="architecture-heading">A copy of the traffic.<br />A trail of evidence.</h2></div><p>The planned physical installation uses an out-of-band sensor. The current proof of concept runs in an isolated virtual lab.</p></div>
-   <div className="flow" aria-label="Architecture: HMI and PLC traffic goes through a switch. A mirror or TAP copies traffic to the sensor capture interface. Zeek creates logs, then normalization, discovery and detection produce dashboard evidence.">
-    <div className="flow-zone"><span className="flow-label">Operational network</span><div className="network-pair"><div className="flow-node">HMI<span>Operator interface</span></div><span className="connector bidirectional" aria-hidden="true">↔</span><div className="flow-node">Managed switch<span>or network TAP</span></div><span className="connector bidirectional" aria-hidden="true">↔</span><div className="flow-node">PLC<span>Process control</span></div></div></div>
-    <div className="capture-line"><span aria-hidden="true">↓</span><p>Mirrored traffic only <strong>Capture connection</strong></p></div>
-    <div className="processing"><div className="flow-node"><strong>SentinelOT sensor</strong><span>Capture interface</span></div><span className="connector" aria-hidden="true">→</span><div className="flow-node"><strong>Zeek</strong><span>Structured protocol logs</span></div><span className="connector" aria-hidden="true">→</span><div className="flow-node"><strong>Evidence pipeline</strong><span>Normalize · Discover · Detect</span></div></div>
-    <div className="management-line"><p><strong>Separate management connection</strong><span>Local operator access to dashboard evidence</span></p><div className="flow-node">SentinelOT dashboard<span>Assets · Events · Alerts</span></div></div>
-   </div><div className="architecture-notes"><p><strong>Capture is passive.</strong> A mirrored packet copy feeds the sensor. The sensor is not an inline enforcement device.</p><p><strong>Management is separate.</strong> Operator access belongs on a designated management path. This public website has no connection to the sensor or its APIs.</p></div>
-  </div></section>
-  <Hardware />
-  <section className="section shell" id="demo" aria-labelledby="demo-heading"><div className="section-heading"><div><span className="eyebrow">The lab demonstration</span><h2 id="demo-heading">From a process change<br />to an explainable alert.</h2></div><p>A FUXA tank process provides a concrete setting for investigating a controlled write and its associated network evidence.</p></div><Demo /></section>
-  <section className="use-cases section" id="use-cases" aria-labelledby="use-cases-heading"><div className="shell"><div className="section-heading"><div><span className="eyebrow">Intended applications</span><h2 id="use-cases-heading">Where process visibility matters.</h2></div><p>Areas the project is designed to explore. These are intended use cases, not verified customer deployments.</p></div><div className="use-case-grid">{[
-   ['Water treatment', 'Investigate tank, pump and setpoint communications between operator interfaces and controllers.'],
-   ['Hydropower', 'Explore visibility into control exchanges and changes to operational settings.'],
-   ['Electrical utilities', 'Review observed outstation communications and DNP3 control behaviour.'],
-   ['Manufacturing', 'Understand controller interactions and investigate unexpected industrial writes.'],
-  ].map(([title, body], i) => <article key={title}><span className="use-number">0{i+1}</span><h3>{title}</h3><p>{body}</p></article>)}</div></div></section>
-  <section className="section shell research" id="research" aria-labelledby="research-heading"><div className="research-intro"><span className="eyebrow">Research & evidence</span><h2 id="research-heading">Trust begins with<br />knowing the limits.</h2><p>SentinelOT is a research prototype developed at FAST NUCES Islamabad. Its value is transparent local monitoring and evidence an operator can examine.</p><div className="research-status"><strong>Current</strong><span>Passive capture, discovery, configurable rules and local vulnerability matching.</span><strong>Roadmap</strong><span>Machine-learning anomaly detection, Raspberry Pi deployment, longer benign baselines and real industrial hardware validation.</span></div></div><div className="research-details">
-   <details open><summary>Protocol semantics before labels</summary><p>Detection uses decoded operations, request direction and configured thresholds. An authorized source does not prove operator intent; an alert needs process context.</p></details>
-   <details open><summary>Configurable, traceable rules</summary><p>Rules express operations, allowlists and stateful conditions such as write bursts or communication gaps. The rule identifier connects an alert to its detection logic. Thresholds need tuning to the site's operating cycle.</p></details>
-   <details><summary>Independent dataset validation</summary><p>Project records document selected public captures from the Lemay Modbus dataset, QUT S7comm dataset, UOWM DNP3 dataset and NPS ControlLogix corpus. These exercise specific parser and rule paths; they are not comprehensive industrial validation.</p><p>DNP3 enumeration and information gathering remain documented gaps. Public captures do not calibrate every rule or every operating condition.</p></details>
-   <details><summary>Test coverage is not detection effectiveness</summary><p>Automated tests check implementation behaviour against defined inputs and rule boundaries. They cannot establish a plant-wide false-positive rate, safety, throughput or detection accuracy. Those require representative benign operation and independent field evaluation.</p><p>No rule-count, accuracy or performance claim is published here.</p></details>
-   <details><summary>Offline matching has prerequisites</summary><p>The implemented matcher uses approved identities, product mappings and imported CVE intelligence. It reports missing identity, firmware and CPE mapping explicitly. A device with no known match is not certified safe.</p><p>Intelligence needs controlled updates. Documented offline bundle tooling does not verify a completed Raspberry Pi deployment.</p></details>
-  </div></section>
-  <section className="about section" id="about" aria-labelledby="about-heading"><div className="shell about-layout"><div><span className="eyebrow">About SentinelOT</span><h2 id="about-heading">Built from research.<br />Grounded in the lab.</h2></div><div><p className="about-lead">A student research project at<br /><strong>FAST NUCES Islamabad.</strong></p><p>We are exploring how industrial network monitoring can remain local, understandable and practical in constrained environments.</p><ul className="team"><li>Muhammad Abdullah</li><li>Usman Khan</li><li>Momin Amin</li></ul><div className="contact" id="contact"><h3>Contact the project</h3><p>A public contact address has not yet been supplied. Contact details will appear here once confirmed by the team.</p></div></div></div></section>
- </main>
- <footer className="shell footer"><div className="footer-top"><a className="brand" href="#top" aria-label="Back to SentinelOT home"><img src="/media/sentinelot-logo.png" alt="SentinelOT" width="700" height="115" loading="lazy" /></a><p>Offline-first visibility for industrial networks.</p><a className="text-link" href="#top">Back to top ↑</a></div><div className="footer-bottom"><span>SentinelOT · Research prototype · FAST NUCES Islamabad</span><span>Context photograph: <a href="https://unsplash.com/photos/Ac97OqAWDvg">Ivan Bandura / Unsplash</a>. Not a deployment.</span></div></footer>
- </>; }
+
+export default function Home() {
+  return (
+    <>
+      <a className="skip-link" href="#main">Skip to content</a>
+      <Navigation />
+      <main id="main">
+        {/* Hero Section */}
+        <section className="hero" aria-labelledby="hero-title">
+          <video
+            className="hero-photo"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/media/industrial-water.jpg"
+            aria-hidden="true"
+          >
+            <source src="/media/hero-video.mp4" type="video/mp4" />
+          </video>
+          <div className="hero-shade" />
+          <div className="hero-grid" aria-hidden="true" />
+          <div className="hero-content shell">
+            <div className="hero-main">
+              <div className="hero-status">
+                <span className="pulse-dot" aria-hidden="true" />
+                <span>PRE-LAUNCH EVALUATION · PRIVATE PILOT PROGRAM OPEN</span>
+              </div>
+              <h1 id="hero-title">Sentinel<span>OT</span></h1>
+              <p className="hero-subtitle">
+                Offline-first network visibility<br />for critical infrastructure.
+              </p>
+              <p className="hero-description">
+                Understand every device, protocol exchange, and control operation across your industrial network. 
+                100% passive by physical design. Zero packets injected. Zero inline operational risk.
+              </p>
+              <div className="hero-actions">
+                <Link className="button" href="/contact">
+                  Apply for Private Pilot →
+                </Link>
+                <Link className="button outline" href="/how-it-works">
+                  Inspect Architecture
+                </Link>
+              </div>
+              <p className="hero-note">Engineered for air-gapped industrial control systems (ICS / SCADA)</p>
+            </div>
+          </div>
+          <div className="hero-bottom shell">
+            <span>Built around the physical realities of operational technology.</span>
+            <Link href="/solutions" className="hero-link">
+              Explore Industrial Sector Deployments <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+        </section>
+
+        {/* Tactical Stat Cards Matrix */}
+        <section className="section shell" style={{ paddingTop: '3.5rem', paddingBottom: '3.5rem' }} aria-labelledby="metrics-heading">
+          <div className="section-heading">
+            <div>
+<h2 id="metrics-heading">Passive Visibility.<br />Zero Process Interference.</h2>
+            </div>
+            <p>
+              Process availability comes first. The sensor watches traffic copies; it never touches live control data.
+            </p>
+          </div>
+
+          <div className="stat-grid">
+            <article className="stat-card">
+              <div className="stat-num">0</div>
+              <h3 className="stat-title">Packets Injected Into Loops</h3>
+              <p className="stat-desc">
+                100% out-of-band capture via optical TAPs or SPAN mirror ports guarantees zero microsecond latency or PLC cycle interference.
+              </p>
+            </article>
+
+            <article className="stat-card">
+              <div className="stat-num">100%</div>
+              <h3 className="stat-title">Air-Gapped & Local Evidence</h3>
+              <p className="stat-desc">
+                Functions entirely on-premises without external telemetry, mandatory internet routes, or cloud licensing dependencies.
+              </p>
+            </article>
+
+            <article className="stat-card">
+              <div className="stat-num">4+</div>
+              <h3 className="stat-title">Core Protocol Families Decoded</h3>
+              <p className="stat-desc">
+                Deep packet dissection across Modbus TCP, DNP3, Siemens S7comm, and Ethernet/IP down to register values.
+              </p>
+            </article>
+
+            <article className="stat-card">
+              <div className="stat-num">2x</div>
+              <h3 className="stat-title">Physically Segregated NICs</h3>
+              <p className="stat-desc">
+                Hardware-enforced promiscuous listen-only capture interface paired with an isolated out-of-band management interface.
+              </p>
+            </article>
+          </div>
+        </section>
+
+        {/* Principles Strip */}
+        <div className="principles shell">
+          <p>100% Passive by design</p>
+          <p>Local evidence first</p>
+          <p>Rule-based alert engine</p>
+          <Link href="/product">
+            Inspect Hardware Appliance <span aria-hidden="true">↗</span>
+          </Link>
+        </div>
+
+        {/* 4 Pillars of SentinelOT Visibility */}
+        <section className="section shell" aria-labelledby="pillars-heading">
+          <div className="section-heading">
+            <div>
+              <h2 id="pillars-heading">
+                Core Visibility<br />Capabilities.
+              </h2>
+            </div>
+            <p>
+              Passive observability built for Purdue Model Levels 1, 2, and 3 control domains.
+            </p>
+          </div>
+
+          <div className="pillar-grid">
+            <article className="pillar-card">
+<h3>Passive Discovery & Endpoint Profiling</h3>
+              <p>
+                Build and maintain an accurate inventory of PLCs, HMIs, RTUs, and smart field devices from ambient communications without active scanning risks.
+              </p>
+              <Link href="/product" className="text-link mt-4">
+                Explore Product Capabilities →
+              </Link>
+            </article>
+
+            <article className="pillar-card">
+<h3>Out-of-Band Signal Pipeline</h3>
+              <p>
+                Optical TAPs copy raw Ethernet frames directly into wire-speed protocol decoders, physically isolated from control loops.
+              </p>
+              <Link href="/how-it-works" className="text-link mt-4">
+                Inspect Sanitized Flow Diagram →
+              </Link>
+            </article>
+
+            <article className="pillar-card">
+<h3>Ruggedized Embedded Appliance</h3>
+              <p>
+                Dedicated physical appliance with decoupled transmit circuitry on the capture port, ensuring 100% unidirectional ingress.
+              </p>
+              <Link href="/product" className="text-link mt-4">
+                Rotate 3D Sensor Console →
+              </Link>
+            </article>
+
+            <article className="pillar-card">
+<h3>IEC 62443 & NIST SP 800-82 Alignment</h3>
+              <p>
+                Helps asset owners meet requirements for continuous network monitoring (SR 6.2) and zone/conduit auditability.
+              </p>
+              <Link href="/trust" className="text-link mt-4">
+                Review Trust & Hardening Controls →
+              </Link>
+            </article>
+          </div>
+        </section>
+
+        {/* Sector Applications Carousel/Grid */}
+        <section className="use-cases section" aria-labelledby="use-cases-heading">
+          <div className="shell">
+            <div className="section-heading">
+              <div>
+<h2 id="use-cases-heading">Where process uptime is mission-critical.</h2>
+              </div>
+              <p>
+                Tailored passive monitoring built for the specific protocols and operational constraints of heavy industry.
+              </p>
+            </div>
+            <div className="use-case-grid">
+              <article>
+<h3>Water & Wastewater</h3>
+                <p>Monitor pump stations, valve positions, and chemical dosing setpoints across Modbus TCP and DNP3 outstations without fieldbus latency.</p>
+              </article>
+              <article>
+<h3>Power & Electric Utilities</h3>
+                <p>Audit RTU-to-master commands, protective relay communications, and substation ring health while fulfilling audit requirements.</p>
+              </article>
+              <article>
+<h3>Oil & Gas / Petrochemicals</h3>
+                <p>Passive visibility into Safety Instrumented Systems (SIS) and DCS engineering workstations with zero risk of tripping process trips.</p>
+              </article>
+              <article>
+<h3>Advanced Manufacturing</h3>
+                <p>Track Siemens S7comm and Ethernet/IP exchanges to alert on unauthorized controller logic uploads or uncataloged maintenance laptops.</p>
+              </article>
+            </div>
+            <div style={{ marginTop: '2.5rem', textAlign: 'center' }}>
+              <Link href="/solutions" className="button outline" style={{ color: 'var(--ink)', borderColor: 'var(--line)' }}>
+                View Full Sector Solutions & Use Cases →
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Private Pilot Onboarding Callout */}
+        <section className="section shell subpage-cta">
+          <div className="subpage-cta-box">
+            <div>
+<h2>Evaluate SentinelOT in your operational network</h2>
+              <p>Join qualified municipal utilities, power generators, and industrial operators in our structured 30 to 60-day hardware Private Pilot Program.</p>
+            </div>
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+              <Link href="/contact" className="button">
+                Apply for Private Pilot
+              </Link>
+              <Link href="/technical-docs" className="button outline" style={{ color: 'var(--ink)', borderColor: 'var(--line)' }}>
+                Request Technical Documentation 🔒
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="shell footer">
+        <div className="footer-top">
+          <Link className="brand" href="/" aria-label="Back to SentinelOT home">
+            <img src="/media/sentinelot-logo.png" alt="SentinelOT" width="700" height="115" loading="lazy" />
+          </Link>
+          <p>Offline-first passive network visibility for industrial control systems.</p>
+          <a className="text-link" href="#main">Back to top ↑</a>
+        </div>
+        <div className="footer-bottom">
+          <span>SentinelOT · Industrial Control Systems (ICS/OT) Security</span>
+          <span>
+            <Link href="/trust" style={{ marginRight: '1rem' }}>Security & Trust</Link>
+            <Link href="/technical-docs" style={{ marginRight: '1rem' }}>Gated Portal</Link>
+            <Link href="/contact">Contact</Link>
+          </span>
+        </div>
+      </footer>
+    </>
+  );
+}

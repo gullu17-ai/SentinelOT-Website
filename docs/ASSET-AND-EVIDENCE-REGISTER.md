@@ -4,12 +4,12 @@ Reviewed 3 November 2026. The operational Flask project was read only; no servic
 
 ## Copied assets
 
-- Original logo: `/home/kali/Desktop/sentinelot_POC/sentinelot/static/logo_light.png`, copied unmodified.
+- Original logo: `[internal-repo-root]/sentinelot/static/logo_light.png`, copied unmodified.
 - Original icon: `sentinelot/static/logo_icon_light.png`, copied unmodified.
 - Asset inventory: thesis evidence `dashboard-assets.png`.
 - Protocol events: thesis evidence `dashboard-event-logs.png`.
-- Alerts: `/home/kali/Pictures/Screenshots/Screenshot_20261007_034525.png`.
-- Network map: `/home/kali/Pictures/Screenshots/Screenshot_20261007_034544.png`.
+- Alerts: `[internal-capture-archive]/Screenshot_20261007_034525.png`.
+- Network map: `[internal-capture-archive]/Screenshot_20261007_034544.png`.
 - Screenshot captures are historical research-lab evidence from October 2026, not live views or current production metrics. Original screenshot text and dates are preserved.
 - Hero photograph: Ivan Bandura, https://unsplash.com/photos/Ac97OqAWDvg . Image: https://images.unsplash.com/photo-1533077162801-86490c593afb . Free-use image linked in Unsplash's water-treatment results. License checked: https://unsplash.com/license . Attribution is visible in the footer. This is context, not a SentinelOT deployment.
 - Social preview: locally generated typography and original logo, no fabricated product imagery.

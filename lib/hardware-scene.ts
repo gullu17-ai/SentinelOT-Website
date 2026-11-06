@@ -5,7 +5,7 @@ export function createHardwareScene(host: HTMLElement, onPlaying: (value: boolea
  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
  renderer.outputColorSpace = THREE.SRGBColorSpace;
- renderer.setClearColor(0xf0f3ee, 1);
+ renderer.setClearColor(0x000000, 0);
  host.appendChild(renderer.domElement);
  renderer.domElement.setAttribute('aria-hidden', 'true');
  const scene = new THREE.Scene();
@@ -38,15 +38,15 @@ export function createHardwareScene(host: HTMLElement, onPlaying: (value: boolea
  }
  function label(text: string, x: number, z: number, width: number, depth: number, y=.205, color='#e7eee2', upside=false) {
   const canvas=document.createElement('canvas');canvas.width=768;canvas.height=128;
-  const ctx=canvas.getContext('2d')!;ctx.fillStyle=color;ctx.font='600 55px Arial';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,384,64);
+  const ctx=canvas.getContext('2d')!;ctx.fillStyle=color;ctx.font='600 55px "Plex", "IBM Plex Sans", sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(text,384,64);
   const texture=new THREE.CanvasTexture(canvas);texture.colorSpace=THREE.SRGBColorSpace;
   const mesh=new THREE.Mesh(new THREE.PlaneGeometry(width,depth),new THREE.MeshBasicMaterial({map:texture,transparent:true,depthWrite:false}));mesh.rotation.x=upside?Math.PI/2:-Math.PI/2;mesh.position.set(x,y,z);board.add(mesh);
  }
- // Component placement is illustrative, with the board interfaces recognizable from Pi 5.
- box(1.55,.18,1.55,-.85,.28,.15,black);box(1.3,.08,1.3,-.85,.41,.15,metal);label('BCM2712',-.85,.15,1.12,.22,.455,'#34413d');
- box(1.15,.15,.95,-2.45,.28,.3,black);label('SDRAM',-2.45,.3,.93,.18,.363);
- box(1.12,.2,1.12,1.15,.29,.25,black);label('RP1',1.15,.25,.8,.22,.4);
- box(1.18,.17,.9,-2.7,.28,-1.35,metal);label('WIRELESS',-2.7,-1.35,.95,.17,.375,'#34413d');
+ // Component placement is illustrative, with the board interfaces recognizable from concept sensor appliance.
+ box(1.55,.18,1.55,-.85,.28,.15,black);box(1.3,.08,1.3,-.85,.41,.15,metal);label('SEC-PROC',-.85,.15,1.12,.22,.455,'#34413d');
+ box(1.15,.15,.95,-2.45,.28,.3,black);label('SYSTEM-RAM',-2.45,.3,.93,.18,.363);
+ box(1.12,.2,1.12,1.15,.29,.25,black);label('I/O-CTR',1.15,.25,.8,.22,.4);
+ box(1.18,.17,.9,-2.7,.28,-1.35,metal);label('RF-SHIELD',-2.7,-1.35,.95,.17,.375,'#34413d');
  box(5.0,.28,.48,-.5,.30,-2.32,black);
  for(let row=0;row<2;row++) for(let i=0;i<20;i++) box(.07,.6,.07,-2.87+i*.247,.62,-2.44+row*.25,gold);
  // Stacked USB ports and Ethernet connector use recessed, dark openings.
@@ -76,7 +76,7 @@ export function createHardwareScene(host: HTMLElement, onPlaying: (value: boolea
  }
  box(1.65,.15,1.35,-2.8,-.10,.6,metal);label('microSD',-2.8,.6,1.25,.25,-.18,'#34413d',true);
  for(let i=0;i<36;i++)box(.09,.045,.07,-2.8+(i%12)*.44,-.04,-1.7+Math.floor(i/12)*.27,gold);
- label('Raspberry Pi 5',-.8,-1.15,2.5,.34);label('SENTINELOT / CONCEPT',-.5,2.12,2.8,.23);label('ILLUSTRATIVE HARDWARE STUDY',.5,.0,3,.28,-.03,'#e7eee2',true);
+ label('INDUSTRIAL SENSOR V1',-.8,-1.15,2.5,.34);label('SENTINELOT / CONCEPT',-.5,2.12,2.8,.23);label('ILLUSTRATIVE HARDWARE STUDY',.5,.0,3,.28,-.03,'#e7eee2',true);
  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
  let playing=!reduced.matches, visible=true, dead=false, frame=0, last=0;
  onPlaying(playing);

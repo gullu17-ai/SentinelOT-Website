@@ -4,9 +4,9 @@ Source: the user's explicit brief. Predominantly white, charcoal typography, res
 
 Reading this as: a public industrial security product website for technical operators and research evaluators, in a precise industrial style, dial ENERGY 2 / RHYTHM 3 / MOTION 1.
 
-- Arial/Helvetica provides clear instrument-panel-like typography with locally available fonts and no third-party font requests. Fixed sizes adapt at named breakpoints.
+- IBM Plex Sans (self-hosted woff2, 400/500/600/700) provides engineered industrial typography with distinct personality and crisp hierarchy. IBM Plex Mono handles technical labels, protocol evidence, timestamps, and monospaced data. Sizes use a rem-based role scale with fluid clamp scaling for hero display type. Eyebrows use Plex Mono uppercase with letter-spacing for a technical instrument aesthetic.
 - The hero's photographic overlay protects text contrast; the photograph situates the domain and is explicitly not a deployment image.
-- Lime emphasizes the OT in the product name and the active evidence tab. Deep teal distinguishes actions and the architecture section.
+- Semantic tokens define a unified palette: `--surface` / `--paper` for neutral canvas, `--teal` (#084e50) for primary actions, `--dark-bg` (#0d2425) for high-contrast industrial zones, and disciplined lime tokens (`--lime` #b8cc2a on dark surfaces with > 8:1 contrast, and `--lime-ink` #485b00 on light surfaces with > 4.8:1 contrast) to guarantee full WCAG AA accessibility without color fragmentation.
 - Numbered feature rows replace decorative cards. The protocol table permits direct scope/limitation comparison.
 - The architecture diagram uses solid capture and dashed management separation to explain real connection differences. Arrows indicate actual flow.
 - A wide screenshot viewer keeps original product evidence intact; a native modal permits full-scale inspection on narrow screens.
