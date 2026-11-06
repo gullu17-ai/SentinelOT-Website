@@ -3,34 +3,30 @@ import Navigation from '@/components/Navigation';
 import TechnicalDocsForm from '@/components/TechnicalDocsForm';
 
 export const metadata = {
-  title: 'Gated Technical Documentation | Verified Portal Access',
-  description: 'Request verified access to SentinelOT engineering schematics, hardware deployment guides, interface pinouts, and system hardening documentation.',
+  title: 'Hardware & Deployment Documentation | SentinelOT',
+  description: 'Hardware specifications, optical TAP deployment manuals, and SIEM integration documentation for engineers and operators.',
 };
 
-const restrictedDocs = [
+const technicalDocuments = [
   {
-    id: 'DOC-HW-01',
-    title: 'Appliance Mechanical & Environmental Specification',
-    scope: 'Detailed physical dimensions, thermal dissipation curves (-20°C to +70°C), redundant power feed requirements, shock/vibration tolerance ratings, and MTBF documentation.',
-    access: 'RESTRICTED / VERIFIED OPERATORS ONLY',
+    title: 'Mechanical & Power Specifications',
+    category: 'Hardware',
+    scope: 'Enclosure dimensions for DIN-rail and 1U rack configurations, operating temperatures (-20°C to +70°C), power draw, and redundant feed wiring.',
   },
   {
-    id: 'DOC-DEP-02',
-    title: 'Substation & Plant Network Deployment Guide',
-    scope: 'Optical split ratio calculations (80/20 vs 70/30), multi-tier SPAN buffer sizing, dual-NIC physical segregation verification, and non-intrusive commissioning procedures.',
-    access: 'RESTRICTED / VERIFIED OPERATORS ONLY',
+    title: 'TAP Installation & Network Commissioning',
+    category: 'Deployment',
+    scope: 'Optical split ratio selection (80/20, 70/30), switch mirror port configuration, and physical receive-only cable verification.',
   },
   {
-    id: 'DOC-INT-03',
-    title: 'Syslog Normalization & REST API Specification',
-    scope: 'Complete data dictionary, JSON event schema mappings for Modbus/DNP3/S7comm alert structures, local SQLite/PostgreSQL schema export, and SIEM CEF field mapping.',
-    access: 'RESTRICTED / INTEGRATION PARTNERS ONLY',
+    title: 'Event Normalization & SIEM Schema',
+    category: 'Integration',
+    scope: 'Field definitions for normalized Modbus, DNP3, and S7comm events, CEF and Syslog mappings, and local database export format.',
   },
   {
-    id: 'DOC-SEC-04',
-    title: 'System Appliance Hardening & Offline Key Management',
-    scope: 'Secure boot configuration, read-only root filesystem architecture, offline GPG-signed firmware update procedures, and physical anti-tamper storage policies.',
-    access: 'RESTRICTED / PILOT CUSTOMERS ONLY',
+    title: 'Sensor Appliance Hardening Guide',
+    category: 'Security',
+    scope: 'Secure boot verification, read-only root partition maintenance, and offline signed firmware update installation.',
   },
 ];
 
@@ -43,40 +39,33 @@ export default function TechnicalDocsPage() {
         {/* Header */}
         <section className="subpage-hero">
           <div className="shell">
-<h1 className="subpage-heading">Verified Technical Documentation.</h1>
+            <h1 className="subpage-heading">Hardware & Deployment Documentation.</h1>
             <p className="subpage-lead">
-              To protect the intellectual property of SentinelOT and prevent competitive reverse-engineering of our pre-launch 
-              hardware appliance, engineering manuals and hardware specifications are restricted to verified 
-              operators, certified partners, and qualified pilot participants.
+              Hardware schematics, optical TAP installation guides, and integration specifications for engineers, 
+              facility operators, and integration partners.
             </p>
           </div>
         </section>
 
-        {/* Restricted Document Catalog */}
-        <section className="section shell" aria-labelledby="catalog-heading">
+        {/* Document List */}
+        <section className="section shell" aria-labelledby="docs-list-heading">
           <div className="section-heading">
             <div>
-<h2 id="catalog-heading">Restricted Technical Assets.</h2>
+              <h2 id="docs-list-heading">Available Documentation Packages.</h2>
             </div>
             <p>
-              Review the technical scopes of available engineering packages before submitting your verification request.
+              Detailed technical packages shared with operators and pilot participants.
             </p>
           </div>
 
-          <div className="doc-grid">
-            {restrictedDocs.map(doc => (
-              <article key={doc.id} className="doc-card">
-                <div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-                    <span className="doc-badge">{doc.id}</span>
-                    <span className="doc-lock">🔒 {doc.access}</span>
-                  </div>
-                  <h3>{doc.title}</h3>
-                  <p>{doc.scope}</p>
-                </div>
-                <div style={{ marginTop: '1.25rem', paddingTop: '0.75rem', borderTop: '1px solid var(--line)', fontSize: '0.75rem', color: 'var(--muted)' }}>
-                  Availability: Dispatched via encrypted link upon domain verification.
-                </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem', marginBottom: '3rem' }}>
+            {technicalDocuments.map(doc => (
+              <article key={doc.title} style={{ background: 'var(--paper)', border: '1px solid var(--line)', padding: '1.75rem', borderRadius: '2px' }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--teal)', display: 'block', marginBottom: '0.5rem' }}>
+                  {doc.category}
+                </span>
+                <h3 style={{ fontSize: '1.1875rem', marginBottom: '0.75rem', color: 'var(--ink)' }}>{doc.title}</h3>
+                <p style={{ fontSize: '0.875rem', lineHeight: '1.6', color: 'var(--muted)' }}>{doc.scope}</p>
               </article>
             ))}
           </div>
@@ -86,9 +75,9 @@ export default function TechnicalDocsPage() {
         <section className="section shell" style={{ paddingTop: '0' }} aria-labelledby="form-heading">
           <div className="secure-form-container">
             <div className="secure-form-header">
-<h3 id="form-heading">Request Verified Documentation Access</h3>
-              <p style={{ fontSize: '0.875rem', color: 'var(--muted)', marginTop: '0.5rem' }}>
-                Requests are reviewed by our engineering security team. Generic consumer emails (@gmail, @yahoo, @hotmail) are automatically rejected.
+              <h2 id="form-heading" style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>Request Engineering Documentation</h2>
+              <p style={{ fontSize: '0.875rem', color: 'var(--muted)' }}>
+                Detailed pinouts, mounting dimensions, and firmware guides are provided to verified facility operators, system integrators, and pilot evaluators under mutual NDA.
               </p>
             </div>
 
@@ -96,37 +85,38 @@ export default function TechnicalDocsPage() {
           </div>
         </section>
 
-        {/* 3-Step Verification Process Explanation */}
+        {/* How Access Works */}
         <section className="section shell" style={{ paddingTop: '0' }}>
           <div className="section-heading">
             <div>
-<h2>Vetting & Delivery Workflow.</h2>
+              <h2>How Documentation Requests Work.</h2>
             </div>
             <p>
-              How our engineering team protects proprietary hardware designs while supporting legitimate operators.
+              Direct delivery from our engineering team to your facility.
             </p>
           </div>
 
-          <div className="pillar-grid">
-            <article className="pillar-card">
-<h3>Domain & Role Verification</h3>
-              <p>Your work email domain and operational role are validated against commercial enterprise registries within 1 business day.</p>
-            </article>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.5rem' }}>
+            <div style={{ background: 'var(--paper)', border: '1px solid var(--line)', padding: '1.75rem', borderRadius: '2px' }}>
+              <h3 style={{ fontSize: '1.0625rem', marginBottom: '0.5rem' }}>1. Submit Work Details</h3>
+              <p style={{ fontSize: '0.875rem', lineHeight: '1.6', color: 'var(--muted)' }}>
+                Tell us your organization and which document packages you need for your facility review or pilot planning.
+              </p>
+            </div>
 
-            <article className="pillar-card">
-<h3>Engineering Clearance</h3>
-              <p>A member of our technical security team reviews the stated evaluation purpose to confirm legitimate operator or integrator affiliation.</p>
-            </article>
+            <div style={{ background: 'var(--paper)', border: '1px solid var(--line)', padding: '1.75rem', borderRadius: '2px' }}>
+              <h3 style={{ fontSize: '1.0625rem', marginBottom: '0.5rem' }}>2. Engineering Review</h3>
+              <p style={{ fontSize: '0.875rem', lineHeight: '1.6', color: 'var(--muted)' }}>
+                Our team confirms the request and verifies the facility requirements within one business day.
+              </p>
+            </div>
 
-            <article className="pillar-card">
-<h3>Encrypted Secure Delivery</h3>
-              <p>Upon approval, a time-limited (48-hour expiration), single-use encrypted delivery token is dispatched directly to your corporate inbox.</p>
-            </article>
-
-            <article className="pillar-card">
-<h3>Dedicated Technical Session</h3>
-              <p>An optional 30-minute technical session with a systems architect is scheduled to assist with optical TAP deployment planning.</p>
-            </article>
+            <div style={{ background: 'var(--paper)', border: '1px solid var(--line)', padding: '1.75rem', borderRadius: '2px' }}>
+              <h3 style={{ fontSize: '1.0625rem', marginBottom: '0.5rem' }}>3. Secure Delivery</h3>
+              <p style={{ fontSize: '0.875rem', lineHeight: '1.6', color: 'var(--muted)' }}>
+                We send the requested PDF engineering packages directly to your corporate work email.
+              </p>
+            </div>
           </div>
         </section>
       </main>
@@ -136,11 +126,11 @@ export default function TechnicalDocsPage() {
           <Link className="brand" href="/" aria-label="Back to SentinelOT home">
             <img src="/media/sentinelot-logo.png" alt="SentinelOT" width="700" height="115" loading="lazy" />
           </Link>
-          <p>SentinelOT Gated Technical Documentation Portal: Secure corporate domain verification.</p>
+          <p>SentinelOT Technical Documentation: Deployment and engineering specifications.</p>
           <a className="text-link" href="#main">Back to top ↑</a>
         </div>
         <div className="footer-bottom">
-          <span>SentinelOT · Responsible Information Disclosure</span>
+          <span>SentinelOT · Engineering Documentation</span>
           <span>
             <Link href="/trust" style={{ marginRight: '1rem' }}>Security Policy</Link>
             <Link href="/contact">Apply for Pilot</Link>
