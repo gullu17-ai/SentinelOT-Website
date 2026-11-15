@@ -1,71 +1,116 @@
-# Verification and Anti Slop delivery gate
+# Product Studio redesign verification
 
-Checked 3 November 2026 using the production static export in local Chromium, with software WebGL for the hardware viewer. The final Next.js build and its TypeScript check passed. No application JavaScript exceptions were observed in the interaction runs.
+15 November 2026. Work performed only in the public website checkout. No GitHub push or publication.
 
-## Functional checks
+## Build and static export
 
-- PASS: Product, How It Works, Use Cases, Research, About and Watch Demo navigation reaches its corresponding section.
-- PASS: all fragment links resolve to existing IDs; hardware shortcut reaches the viewer.
-- PASS: Asset Inventory, Protocol Events, Alerts and Network Map show their genuine screenshots; all four expand in a native dialog and close with Escape. Re-selecting the current tab does not leave a loading overlay.
-- PASS: Vulnerabilities displays an explicit evidence-pending state.
-- PASS: tab ArrowRight changes selection; source implements symmetric ArrowLeft and Home/End handling with tab focus. Visible focus styles are present.
-- PASS: all research disclosure panels open and close.
-- PASS: mobile navigation opens, selecting Research closes it, Escape closes it and returns focus to the toggle.
-- PASS: hardware automatic rotation, pause, flip, reset, zoom in and zoom out controls execute without application exceptions. Mouse dragging and keyboard arrows/plus/reset work. Reduced-motion browser preference starts automatic rotation paused.
-- PASS: screenshots inspected at 1440px desktop and 390px mobile. Layout checks at 320, 390, 768, 1024 and 1440px show no horizontal document overflow. Original screenshots can be expanded and scrolled for readable detail.
-- PASS: all page images load after their lazy-load regions are visited. A deliberately blocked screenshot displays the error state and retry successfully reloads it after unblocking.
-- PASS: 404 return link works. Social preview, sitemap and robots.txt return HTTP 200.
-- PASS: text/background palette measurements: primary 13.41:1, muted on white 6.41:1, muted on pale background 5.84:1, white on teal 9.48:1, white on hero button 7.65:1, viewer text 7.07:1, architecture text 8.71:1. Hero overlay protects copy; its right-hand link has a solid dark background. Original product screenshots preserve their source colors and are not a redesign of the monitoring dashboard.
+- Next.js production build and its TypeScript check pass.
+- Home, Product, Research and About are exported as static pages.
+- `python3 scripts/verify-export.py` passes: four pages and 121 local link/asset references, including section anchors, page metadata, canonical URLs, social images, page landmarks and sitemap.
+- Social preview is generated with the upgraded circuit monogram.
+- Product brief is two pages and contains all three approved email addresses. Both rendered pages were visually reviewed; the screenshot caption is outside the capture.
+- `git diff --check` passes.
 
-## Hard gate
+## Browser checks
 
-- PASS R-02: authored UI text contains no em dash.
-- PASS R-03: checked responsive widths with no horizontal page overflow; controls and screenshots remain within layout.
-- PASS R-17: no invented rule counts, test counts, performance or accuracy statistics.
-- PASS R-18: no testimonials or invented people.
-- PASS R-23: original assets used; user explicitly requested the 3D hardware concept; no generated logo or portrait.
-- PASS R-24: all navigation targets exist.
-- PASS R-25: measured site palette meets AA text ratios; photo overlay and solid link backing checked visually.
-- PASS R-26: controls execute real actions; missing media is explicit and has no fake play button.
-- PASS R-27: image loading, failure/retry, missing evidence and WebGL fallback states implemented; image recovery exercised.
-- PASS R-28: no generic FAQ.
-- PASS R-32: keyboard tabs, modal Escape, menu Escape, hardware keyboard handling and focus indicators verified.
-- PASS R-33: UI implemented directly in source, not source-rewriting patch scripts.
-- PASS R-34: one requested light theme; no incomplete theme toggle.
-- PASS R-35: production build, browser interactions and screenshots recorded above.
-- PASS R-36: prototype status, roadmap and evidence boundaries explicit; no unsupported endorsements or readiness claims.
-- PASS R-37: written user design direction retained in DESIGN.md.
-- PASS R-38: genuine captures, documented capabilities, clearly labeled concept and missing media.
+Checked the production static export at http://localhost:3001 in the Codex in-app browser.
 
-## Purpose gate
+- Desktop homepage reviewed: centered headline, genuine screenshot stage, correct circuit monogram and restrained brand palette.
+- Mobile homepage, Product, Research and About reviewed at 390px. All four pages additionally checked at 320px; no horizontal document overflow.
+- Mobile navigation opens, follows Product/About links and closes after navigation.
+- Escape closes the mobile menu and restores focus to its toggle.
+- Genuine screenshot assets load. Cached-image loading state is fixed by checking the loaded image on mount.
+- Mouse selection and ArrowRight switch screenshot tabs.
+- Original-resolution modal opens with Enter; Escape closes it and restores focus to Expand screenshot.
+- Research disclosure opens to reveal dataset boundaries.
+- All three approved mailto addresses appear under the correct names, with Abdullah and Usman identified as primary contacts.
+- Hardware initially renders a static concept without a WebGL canvas. The 3D library loads only after the visitor requests it.
+- The preview browser cannot create a WebGL context (virtual Mesa/ANGLE context creation error). The static fallback was successfully verified; rotation, zoom and flip could not be verified in this browser.
+- The public website does not connect to monitoring APIs.
 
-- PASS R-01: requested brand palette; hero gradient exists to ensure text readability.
-- PASS R-04: play triangle describes the demo destination; no generic decorative icon family.
-- PASS R-06: fixed Arial/Helvetica sizes chosen for readable industrial documentation and local font availability.
-- PASS R-07: no decorative background grid.
-- PASS R-08: arrows indicate real page movement or network flow.
-- PASS R-09: rectangular labels communicate prototype/concept status; no capsule or decorative live indicator.
-- PASS R-10: no glassmorphism.
-- PASS R-12: no decorative elevation/shadow system.
-- PASS R-13: no glow.
-- PASS R-14: feature rows, protocol comparisons and evidence viewer reflect different content needs.
-- PASS R-19: user-requested hardware rotation is pausable, stops on interaction, respects reduced motion and avoids offscreen rendering. No unrelated animations.
-- PASS R-22: the 3D board explains the hardware direction and is explicitly illustrative.
+## Accessibility and motion
 
-## Liveliness and craftsmanship
+- One main landmark and one H1 per public page, skip link, current-page navigation, visible focus styles and labeled screenshot dialog.
+- Native keyboard-operable tabs, modal, disclosure elements and buttons.
+- Reduced-motion CSS removes entrance animation and transitions. Hardware starts paused, with optional rotation and a Static view control.
+- Representative authored palette measurements: primary text on white 14.38:1; body text on white 5.81:1; white on deep teal 11.74:1; lime statement text on deep teal 8.02:1. Muted screenshot captions were darkened after the first check. The large bold OT wordmark uses an olive accent at 3.67:1 on white.
+- Original dashboard screenshot colors and text are preserved. A screenshot can be expanded for readable detail on small screens.
+- Hardware caps pixel ratio at 1.25 and schedules frames only during interaction or requested rotation. Hidden-tab and offscreen checks pause rendering. These lifecycle controls were reviewed in source; live WebGL execution remains a verification limit.
 
-- PASS: ENERGY 2 / RHYTHM 3 / MOTION 1, with the user's hardware-viewer MOTION 2 exception documented.
-- PASS: hero typography, evidence screenshots and interactive hardware each provide a focal point in their section.
-- PASS: spacing separates evidence, architecture and research; compositions vary with content.
-- PASS: restrained lime accent, original logo, industrial photography and circuit detail establish the identity.
-- PASS C-1 through C-5: design decisions documented, interactions exercised, requested sections serve content, responsive states checked, claims sourced.
-- PASS R-05/R-11/R-15/R-16/R-20/R-21/R-29/R-30/R-31: varied composition, restrained rectangular controls, user-requested action labels, no marketing superlatives, brand-specific imagery, light base, bounded palette, no copied commercial template, documented visual rationale.
+## Remaining assets and limitations
 
-## Remaining limits
+1. Verified FUXA demonstration MP4 plus poster, reviewed WebVTT captions and transcript. Playback and caption synchronization cannot be checked before these exist.
+2. Confirmed production domain. Existing private-preview metadata and noindex remain until configured.
+3. Verify 3D interaction in a WebGL-capable browser and touch gestures on physical hardware.
+4. Team portraits are optional; no fabricated photographs are used.
 
-- No demo recording exists in the supplied/discovered assets. Real video playback, caption synchronization and transcript accuracy cannot be verified. Native player support is implemented but not presented until actual media is configured.
-- Touch gestures are supported by TrackballControls, but no physical touch device was available. Mouse and keyboard interactions were exercised in Chromium.
-- Hardware is procedural concept geometry; physical deployment, thermal behaviour and packet capture performance have not been tested.
-- The missing vulnerability capture and public contact details remain visible notices.
-- No production domain was supplied; metadata and sitemap use the confirmed private hosted preview address. Noindex remains the default until a production origin is configured.
-- This is a practical browser/visual check, not a claim of formal accessibility certification or cross-browser certification.
+## Current screenshot update
+
+Five genuine JPEG screenshots were captured from the already-running local Flask dashboard on 15 November 2026. The vulnerability panel now has evidence instead of the missing-capture state. The gallery and demo still use the new images, with updated intrinsic dimensions, alt text and retained-data captions. The PDF's screenshot and layout were updated for the 16:9 capture. Data Stale labels and historical records are preserved. No monitoring-project source or configuration was changed for this capture.
+
+The rebuilt export and its TypeScript check pass, as do the 121-reference export check and diff whitespace check. All five gallery tabs were exercised and each new image loaded at its actual 1280 × 720 dimensions. Vulnerability expansion and Escape close work. At 390px, the new gallery image loads with the retained-data caption and no horizontal page overflow. The updated PDF was rendered and its revised first-page layout visually reviewed; the second-page content is unchanged.
+
+## Poster equipment diagram update
+
+How it works now includes the four original poster equipment images: HMI, managed switch, PLC and Raspberry Pi case. File hashes match the supplied poster assets. All four images load in the browser; the desktop and 390px mobile layouts were visually inspected. The 320px and 390px layouts have no horizontal document overflow. The diagram keeps mirrored capture traffic separate from management access and identifies the Pi hardware as planned. The final static export check now covers 125 local references. No application or poster source was changed, and no GitHub push or publication was performed.
+
+This is practical layout and interaction verification, not formal accessibility certification, cross-device certification or evidence of production readiness.
+
+## Poster appliance layout refinement
+
+The How it works diagram now follows the FYP poster appliance grouping: Passive Monitoring, Asset Discovery, Rule-Based Detection, ML Anomaly Detection, Offline Vulnerability Assessment, and Alerting & Reporting. The previous Zeek, Evidence pipeline and Local dashboard diagram boxes are removed. ML is marked Roadmap and Raspberry Pi 5 hardware is marked planned. Capture and management separation remain explained below the diagram.
+
+The production build and TypeScript validation pass; the static export checker validates 126 local references. Desktop and 390px mobile screenshots were visually reviewed. All five diagram images load, and the mobile document has no horizontal overflow. Changes remain local; nothing was pushed or published.
+
+## Laptop dashboard addition
+
+Added the poster-style Local Security Dashboard beneath the appliance, using a lightweight CSS laptop frame and the genuine 15 November asset inventory capture. The connection is labeled Separate management connection. A keyboard-accessible link leads to the full dashboard gallery. Desktop appearance and image loading were visually verified; mobile width was checked at 390px with no horizontal overflow. Production build, TypeScript, 128-reference export validation and diff whitespace checks pass. Nothing was pushed or published.
+
+## Mobile refinement and compatibility checks — 15 November 2026
+
+- Gallery tabs now form a readable two-column layout with 12px text and 48px targets; the fifth tab spans the row. Compact screenshot expansion has a 44px target, and retained-data captions are 11px.
+- The screenshot dialog is centered, has a dynamic viewport height limit with a conventional viewport fallback, and keeps its heading and Close control outside the scrolling image area. Horizontal inspection is contained within the image. Short landscape menus scroll within the viewport.
+- Tablet appliance hardware and modules stack before they become cramped. Mobile roadmap status moves below its item instead of squeezing the heading. Equipment captions and hardware controls use larger text. Browser text adjustment is explicit while viewport zoom remains enabled.
+- The fresh production CSS was confirmed in the browser; cached HTML from an earlier build was bypassed for these checks.
+- Home, Product, Research and About were checked at 320 × 740, 390 × 844, 768 × 1024 and 844 × 390. No document overflow or offscreen content was found in the measured headings, copy, links, buttons or appliance/laptop containers.
+- At 390px, mobile menu open/Escape close, vulnerability tab selection, screenshot expansion and Close passed. The native dialog uses the new flex layout; its Close control remains visible and the image scrolls within the dialog.
+- At 568 × 320, the menu ends at the viewport edge and its overflowing links remain in a scrollable region. The screenshot dialog is 288px high with a visible Close button and a 152px image inspection area.
+- Fresh desktop/mobile screenshot review includes the equipment diagram and laptop, Home, Research and About. Build, TypeScript, 128-reference export validation and whitespace checks pass.
+
+Verification scope: the Codex in-app browser on this Linux machine. Actual Safari/iOS, Android Chrome touch gestures, browser text enlargement and physical WebGL interactions remain device checks; no Safari execution or universal compatibility is claimed. Changes have not been pushed or published.
+
+## Explicit Home navigation
+
+Added Home as the first header navigation link (desktop and mobile) and in the footer. The logo still links to the homepage. Verified navigation from Product to Home, the homepage active indicator, and mobile menu closing after Home selection. Production build, TypeScript, 136-reference export validation and whitespace checks pass. No GitHub push was performed.
+
+## Homepage industrial network animation
+
+Added the approved HMI–managed switch–PLC traffic illustration above the homepage screenshot gallery, with a separate mirrored-traffic branch to SentinelOT. Original poster equipment images and the circuit monogram are reused. The caption explicitly identifies an illustrative flow, not live monitoring. There is no monitoring API, video, WebGL or additional animation library in this component.
+
+Verified all four images load; all five CSS signal traces run and Pause changes each to paused. Play resumes the illustration. Scrolling to the end of the page was verified to pause the offscreen animation through IntersectionObserver. Document visibility and reduced-motion preference handling were reviewed in source; the global reduced-motion CSS also disables the animations. The control has a 44px touch target. Desktop and mobile screenshots were reviewed, with no horizontal document overflow at 320px, 390px or 768px. Oversized source image contents are intentionally clipped within equipment frames. Physical iPhone/Safari execution remains unverified.
+
+Production build, TypeScript and the 141-reference export check pass. No GitHub push or publication was performed.
+
+## Hero cursor, text reveal and scatter effect
+
+Implemented the approved fine-pointer cursor and background-dot scatter option. The headline uses staggered character spans (100ms to 1002ms start delays, 300ms reveal) without shifting word layout; its complete accessible heading label is available immediately. Desktop fine pointers get a teal-dot/lime-ring SVG cursor, while links retain the native hand pointer. No cursor-tracking layer or external library is used.
+
+The decorative canvas contains 72 dots and responds to mouse input near the pointer. It schedules frames only until dots settle, caps pixel ratio at 1.5, and cancels frames when offscreen, hidden or unmounted. Coarse-pointer and reduced-motion preferences hide the canvas, avoid allocating a full-size backing surface and disable character animation. These preference and lifecycle paths were reviewed in source; actual touch and reduced-motion device execution remains unverified.
+
+In the in-app browser, verified the custom cursor CSS, staggered reveal delays, full heading accessibility label, all characters reaching full opacity, and pointer-region screenshot changes after a real mouse click in the intro. Reviewed desktop and narrow-viewport screenshots; no horizontal document overflow at 320px, 390px and 768px. Viewport resizing emulates size only and does not establish mobile pointer capability or Safari behavior. Production build, TypeScript, 141-reference export check and whitespace checks pass. Nothing was pushed or published.
+
+## Reference-based sequential typewriter refinement
+
+Inspected the supplied https://antigravity.google/ homepage and its visible typed heading/caret structure. SentinelOT now uses discrete sequential typing rather than overlapping character fades: a 300ms lead-in, one character every 65ms, and a temporary caret at the latest character. The final caret disappears after 600ms. No source code, fonts, logos or images were copied from the reference.
+
+A small client timer controls the sequence and cleans up on unmount or pointer/motion preference changes. The exported text and accessible heading are complete; reduced-motion and coarse-pointer visitors keep the static headline. The existing cursor and scatter interaction are retained. The build, TypeScript, 141-reference export validation and whitespace checks pass. Nothing was pushed or published.
+
+Browser verification captured an in-progress prefix with one active caret, followed by all 42 non-space characters revealed with zero active carets. Final heading has no horizontal overflow. Progress and completion screenshots were saved.
+
+## Reference-inspired ring dispersion
+
+Replaced the sparse 72-dot intro grid with a deterministic, jittered field of up to 700 short teal/lime dashes. A soft ring follows the mouse with radial displacement and curl, then drifts gently when the pointer leaves. This is an independent Canvas 2D approximation of the supplied Antigravity reference's ring interaction, not its WebGL implementation or copied shader. The reference DOM and public particle module were inspected; its WebGL field did not render in this preview environment, so pixel-identical comparison was not possible.
+
+The new background paints at most 30fps and caps pixel ratio at 1.5. Pause background freezes rendering; Play background resumes. Hidden/offscreen/preference cleanup remains in place. Coarse pointers and reduced-motion preferences receive no canvas or background control. These device preference paths were reviewed in source, not emulated as physical touch/Safari execution.
+
+Verified pointer response in the browser and visually reviewed the active ring. Two paused hero screenshot regions were pixel-identical even after pointer movement; resume restores the control state. Final 320px, 390px and 768px layouts have no document overflow, with 44px background controls clear of the header. Production build, TypeScript, the 141-reference export validation and whitespace checks pass. Nothing was pushed or published.

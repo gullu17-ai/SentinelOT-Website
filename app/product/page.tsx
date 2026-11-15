@@ -1,185 +1,20 @@
-import Link from 'next/link';
-import Navigation from '@/components/Navigation';
-import Hardware from '@/components/Hardware';
+import { pageMetadata } from '@/lib/metadata';
 import ProductGallery from '@/components/ProductGallery';
-
-export const metadata = {
-  title: 'SentinelOT Sensor Appliance | Industrial OT Security Hardware',
-  description: 'Dedicated rack-mount and DIN-rail industrial sensor appliances providing air-gapped packet decoding, asset discovery, and anomaly detection.',
-};
-
-export default function ProductPage() {
-  return (
-    <>
-      <a className="skip-link" href="#main">Skip to content</a>
-      <Navigation />
-      <main id="main">
-        {/* Header */}
-        <section className="subpage-hero">
-          <div className="shell">
-<h1 className="subpage-heading">The SentinelOT Industrial Sensor.</h1>
-            <p className="subpage-lead">
-              A hardware appliance that captures and analyzes industrial network traffic at wire speed, without adding a point of failure to production lines.
-            </p>
-            <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <Link href="/resources" className="button">
-                Download Public Datasheet (PDF)
-              </Link>
-              <Link href="/contact" className="button outline">
-                Apply for Private Pilot
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Telemetry Stat Strip */}
-        <section className="shell" style={{ marginTop: '-2rem', position: 'relative', zIndex: 10 }}>
-          <div className="telemetry-strip">
-            <div className="telemetry-item">
-              <span className="telemetry-val">0 μs</span>
-              <span className="telemetry-lbl">Added Inline Latency</span>
-              <span className="telemetry-sub">Optical TAP capture operates 100% out-of-band; zero delay to PLC scanning.</span>
-            </div>
-            <div className="telemetry-item">
-              <span className="telemetry-val">100%</span>
-              <span className="telemetry-lbl">Hardware-Enforced Unidirectional Rx</span>
-              <span className="telemetry-sub">Transmit circuitry physically uncoupled on capture port to eliminate reflection.</span>
-            </div>
-            <div className="telemetry-item">
-              <span className="telemetry-val">&lt; 10 ms</span>
-              <span className="telemetry-lbl">Event Normalization Window</span>
-              <span className="telemetry-sub">Deep packet dissector extracts register-level payload values at wire speed.</span>
-            </div>
-          </div>
-        </section>
-
-        {/* 3D Hardware Sensor Appliance Viewer */}
-        <section className="section shell" aria-labelledby="hardware-viewer-heading">
-          <div className="section-heading">
-            <div>
-<h2 id="hardware-viewer-heading">Physical hardware layout.</h2>
-            </div>
-            <p>
-              Inspect the physical hardware model featuring dual segregated interfaces, dedicated security processing, and passive DIN-rail / rack-mount form factors.
-            </p>
-          </div>
-          <Hardware />
-        </section>
-
-        {/* Key Appliance Capabilities */}
-        <section className="section shell" style={{ paddingTop: '1rem' }} aria-labelledby="capabilities-heading">
-          <div className="section-heading">
-            <div>
-<h2 id="capabilities-heading">Protocol decoding at the register level.</h2>
-            </div>
-            <p>
-              How the sensor turns raw Ethernet frames into readable protocol events with full command-level context.
-            </p>
-          </div>
-
-          <div className="pillar-grid">
-            <article className="pillar-card">
-<h3>Continuous Passive Asset Profiling</h3>
-              <p>
-                Construct an accurate, self-updating inventory of industrial endpoints strictly from observed traffic. 
-                Identify PLCs, RTUs, HMIs, and engineering workstations by observed protocol behavior, MAC vendor prefixes, and communication pathways.
-              </p>
-            </article>
-
-            <article className="pillar-card">
-<h3>Deep Industrial Protocol Parsing</h3>
-              <p>
-                Decode high-value operational parameters across industrial Ethernet communications: Read/Write command differentiation, 
-                diagnostic and reset command identification, unauthorized programming attempts, and abnormal function code sequences.
-              </p>
-            </article>
-
-            <article className="pillar-card">
-<h3>Operational Event Normalization</h3>
-              <p>
-                The sensor translates raw industrial frames into structured, time-synchronized security events. Every alert includes complete 
-                transaction context, source/destination identities, and exact register values, allowing operators to distinguish maintenance from threats.
-              </p>
-            </article>
-
-            <article className="pillar-card">
-<h3>Localized Vulnerability Corroboration</h3>
-              <p>
-                Cross-reference observed device profiles and firmware revisions against locally maintained industrial vulnerability databases. 
-                Security teams evaluate exposure without ever transmitting network maps or asset identities to an external cloud service.
-              </p>
-            </article>
-          </div>
-        </section>
-
-        {/* Physical Interface Segregation */}
-        <section className="section shell" style={{ paddingTop: '2rem' }}>
-          <div className="subpage-cta-box" style={{ background: 'var(--dark-bg)', color: 'var(--dark-text)', borderColor: 'var(--dark-border)' }}>
-            <div>
-<h2 style={{ color: '#fff' }}>Physical Dual-NIC Segregation</h2>
-              <p style={{ color: 'var(--dark-muted)', maxWidth: '42rem' }}>
-                <strong>Capture Port (Eth0):</strong> Dedicated to optical TAP / mirror port connection. Configured in listen-only promiscuous mode with physical transmit lines uncoupled, guaranteeing zero packet injection into control loops.<br /><br />
-                <strong>Management Port (Eth1):</strong> Logically and physically segregated interface reserved for local engineering access, isolated management VLAN connection, or forward-only syslog output.
-              </p>
-            </div>
-            <div>
-              <Link href="/how-it-works" className="button">
-                Inspect Signal Flow →
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* Evidence Gallery */}
-        <section className="section shell" aria-labelledby="gallery-heading">
-          <div className="section-heading">
-            <div>
-<h2 id="gallery-heading">Genuine Operational Captures.</h2>
-            </div>
-            <p>
-              Inspect verified captures from SentinelOT testbeds: asset discovery, network topology mapping, protocol event logs, and operational alerts.
-            </p>
-          </div>
-          <ProductGallery />
-        </section>
-
-        {/* Gated Technical Specs Trigger */}
-        <section className="section shell subpage-cta">
-          <div className="subpage-cta-box">
-            <div>
-<h2>Detailed hardware specifications & pinouts</h2>
-              <p>
-                Detailed mechanical dimensions, thermal operating curves, power consumption, MTBF figures, and rack-mounting schematics are available in our verified portal.
-              </p>
-            </div>
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <Link href="/technical-docs" className="button">
-                Request Technical Documentation
-              </Link>
-              <Link href="/contact" className="button outline" style={{ color: 'var(--ink)', borderColor: 'var(--line)' }}>
-                Apply for Private Pilot
-              </Link>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer className="shell footer">
-        <div className="footer-top">
-          <Link className="brand" href="/" aria-label="Back to SentinelOT home">
-            <img src="/media/sentinelot-logo.png" alt="SentinelOT" width="700" height="115" loading="lazy" />
-          </Link>
-          <p>SentinelOT Sensor Appliance: Ruggedized, air-gapped, 100% passive monitoring.</p>
-          <a className="text-link" href="#main">Back to top ↑</a>
-        </div>
-        <div className="footer-bottom">
-          <span>SentinelOT · Industrial Hardware Appliance</span>
-          <span>
-            <Link href="/trust" style={{ marginRight: '1rem' }}>Trust & Compliance</Link>
-            <Link href="/technical-docs">Gated Portal</Link>
-          </span>
-        </div>
-      </footer>
-    </>
-  );
+import Hardware from '@/components/Hardware';
+import Architecture from '@/components/Architecture';
+import Demo from '@/components/Demo';
+import { ContactBand } from '@/components/Site';
+import { applications, capabilities, protocols } from '@/lib/content';
+export const metadata = pageMetadata('Product', 'Explore SentinelOT asset inventory, industrial protocol evidence, explainable alerts and offline vulnerability matching.', '/product/');
+export default function Product() {
+  return <>
+    <section className="page-intro shell"><p className="eyebrow">The SentinelOT platform</p><h1>From network traffic<br />to a clearer picture.</h1><p>Discover observed assets, inspect industrial operations and investigate alerts. Keep the evidence close to your process.</p><nav className="page-jumps" aria-label="Product sections"><a href="#platform">Dashboard</a><a href="#protocols">Protocols</a><a href="#how-it-works">How it works</a><a href="#hardware">Hardware concept</a><a href="#use-cases">Use cases</a></nav></section>
+    <section className="shell product-gallery-section" id="platform"><div className="stage-label"><span>Explore the dashboard</span><span>Static research lab evidence</span></div><ProductGallery /></section>
+    <section className="section shell"><div className="section-heading"><div><p className="eyebrow">Core capabilities</p><h2>Visibility with context.</h2></div><p>Four complementary capabilities, designed to support an operator’s investigation.</p></div><div className="capability-list">{capabilities.map((item,i) => <article key={item.id} id={item.id}><span className="index">0{i+1}</span><h3>{item.title}</h3><div><p className="benefit">{item.benefit}</p><p>{item.detail}</p></div></article>)}</div></section>
+    <section className="section scope-section" id="protocols"><div className="shell"><div className="section-heading"><div><p className="eyebrow">Protocol coverage</p><h2>Industrial protocols.<br />Defined boundaries.</h2></div><p>Tested scope depends on installed analyzers, decoded fields and configured rules. Protocol support does not mean every operation is covered.</p></div><div className="protocol-table"><div className="protocol-header"><span>Protocol</span><span>Evidence scope</span><span>Limitations</span></div>{protocols.map(item => <article className="protocol-row" key={item.name}><h3>{item.name}</h3><p><span className="mobile-label">Evidence scope</span>{item.scope}</p><p><span className="mobile-label">Limitations</span>{item.limit}</p></article>)}</div></div></section>
+    <Architecture /><Hardware />
+    <section className="section shell" id="demo"><div className="section-heading"><div><p className="eyebrow">Inside the lab</p><h2>A process change.<br />An explainable alert.</h2></div><p>A FUXA tank process provides a setting for investigating controlled writes. The demonstration recording will be added after capture and review.</p></div><Demo /></section>
+    <section className="application-section section" id="use-cases"><div className="shell"><div className="section-heading"><div><p className="eyebrow">Intended applications</p><h2>Where visibility matters.</h2></div><p>These are environments we intend to explore, rather than verified customer deployments.</p></div><div className="use-case-grid">{applications.map(([name, description],i) => <article key={name}><span className="index">0{i+1}</span><h3>{name}</h3><p>{description}</p></article>)}</div></div></section>
+    <ContactBand />
+  </>;
 }

@@ -1,19 +1,36 @@
-# SentinelOT design direction
+# SentinelOT: Product Studio redesign
 
-Source: the user's explicit brief. Predominantly white, charcoal typography, restrained lime accents, deep teal actions, original undistorted logo, generous spacing and industrial photography. No invented product evidence or customer claims.
+Direction approved by the user on 15 November 2026. Anti Slop skills are not used for this redesign.
 
-Reading this as: a public industrial security product website for technical operators and research evaluators, in a precise industrial style, dial ENERGY 2 / RHYTHM 3 / MOTION 1.
+## Audience and identity
 
-- IBM Plex Sans (self-hosted woff2, 400/500/600/700) provides engineered industrial typography with distinct personality and crisp hierarchy. IBM Plex Mono handles technical labels, protocol evidence, timestamps, and monospaced data. Sizes use a rem-based role scale with fluid clamp scaling for hero display type. Eyebrows use Plex Mono uppercase with letter-spacing for a technical instrument aesthetic.
-- The hero's photographic overlay protects text contrast; the photograph situates the domain and is explicitly not a deployment image.
-- Semantic tokens define a unified palette: `--surface` / `--paper` for neutral canvas, `--teal` (#084e50) for primary actions, `--dark-bg` (#0d2425) for high-contrast industrial zones, and disciplined lime tokens (`--lime` #b8cc2a on dark surfaces with > 8:1 contrast, and `--lime-ink` #485b00 on light surfaces with > 4.8:1 contrast) to guarantee full WCAG AA accessibility without color fragmentation.
-- Numbered feature rows replace decorative cards. The protocol table permits direct scope/limitation comparison.
-- The architecture diagram uses solid capture and dashed management separation to explain real connection differences. Arrows indicate actual flow.
-- A wide screenshot viewer keeps original product evidence intact; a native modal permits full-scale inspection on narrow screens.
-- No decorative animation. Only small hover transitions; reduced-motion users receive none.
-- Research status labels distinguish the current prototype from roadmap work. No fake status lights, team portraits or statistics.
-- User-requested CTA wording is preserved.
+An emerging industrial cybersecurity startup speaking to potential customers and investors. The product is accurately described as a research prototype developed at FAST NUCES Islamabad. No production readiness, customers, certifications or performance statistics are invented.
 
-## Authorized interactive hardware addition
+## Approved direction
 
-The user requested a fully rotatable Raspberry Pi 5-style 3D element and animations. Hardware section uses local Three.js geometry, physical circuit board materials, recognizable interfaces and restrained motion. It is explicitly an illustrative deployment concept, not an engineering replica or completed appliance. Hardware viewer MOTION 2 overrides the initial MOTION 1 only within this interactive region. Automatic rotation pauses on interaction, respects reduced motion and stops rendering offscreen. Mouse, touch and keyboard controls expose all orientations, zoom, flip and reset. This is the cybersecurity accent: real interface separation and circuit detail, not unrelated neon effects.
+- Predominantly white, charcoal / navy typography, restrained lime and deep-teal actions.
+- Circuit monogram recovered from the existing FYP poster's vector drawing; undistorted and reused across navigation, favicon, sharing preview and PDF.
+- Centered headline: “See what’s happening in your industrial network.”
+- Supporting line: “Offline-first OT monitoring. Local data. Explainable alerts.”
+- Real dashboard evidence on a pale sage stage leads the homepage. Deep-teal editorial sections provide contrast.
+- Home, Product, Research and About are separate pages. Architecture, protocol scope, intended applications and hardware are on Product.
+- Explore the Platform is the main action. Download brief is secondary. Recording links become available only when the reviewed video exists.
+- Fixed type sizes at explicit breakpoints, generous spacing, short readable paragraphs and restrained borders.
+- Brief opacity/translation entrance animation and small hover transitions. Reduced motion removes both.
+- Optional 3D is loaded only after a click, with a static illustration by default and a fallback when WebGL is unavailable. Rotation starts paused, is user controlled, and rendering stops while idle or offscreen.
+- No invented portraits. Team names, proposed roles and public emails were explicitly approved in this conversation.
+
+## Team and contact
+
+Primary contacts:
+- Muhammad Abdullah — Project Lead & OT Security — i232064@isb.nu.edu.pk
+- Usman Khan — Platform & Dashboard Development — i232069@isb.nu.edu.pk
+
+Additional contact:
+- Momin Amin — Industrial Lab & Integration — i232081@isb.nu.edu.pk
+
+Public-facing roles reflect the user's approved titles. They do not rewrite historical contribution records in the monitoring project.
+
+## Publication
+
+All work is local. Do not push to GitHub or publish until the user explicitly requests it.
