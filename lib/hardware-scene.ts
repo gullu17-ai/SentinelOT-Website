@@ -3,7 +3,7 @@ import { TrackballControls } from 'three/addons/controls/TrackballControls.js';
 export type HardwareController = { dispose: () => void; rotate: (x: number, y: number) => void; zoom: (factor: number) => void; flip: () => void; reset: () => void; setPlaying: (value: boolean) => void };
 export function createHardwareScene(host: HTMLElement, onPlaying: (value: boolean) => void, onError: () => void): HardwareController {
  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
- renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.25));
  renderer.outputColorSpace = THREE.SRGBColorSpace;
  renderer.setClearColor(0xf0f3ee, 1);
  host.appendChild(renderer.domElement);
@@ -78,27 +78,32 @@ export function createHardwareScene(host: HTMLElement, onPlaying: (value: boolea
  for(let i=0;i<36;i++)box(.09,.045,.07,-2.8+(i%12)*.44,-.04,-1.7+Math.floor(i/12)*.27,gold);
  label('Raspberry Pi 5',-.8,-1.15,2.5,.34);label('SENTINELOT / CONCEPT',-.5,2.12,2.8,.23);label('ILLUSTRATIVE HARDWARE STUDY',.5,.0,3,.28,-.03,'#e7eee2',true);
  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
- let playing=!reduced.matches, visible=true, dead=false, frame=0, last=0;
+ let playing=false, visible=true, dead=false, frame=0, last=0, interacting=false;
  onPlaying(playing);
  function render(){ if(!dead && visible)renderer.render(scene,camera); }
- function setPlaying(value:boolean){playing=value;onPlaying(value);render();}
+ function schedule(){if(!frame && !dead && visible && !document.hidden && (playing||interacting))frame=requestAnimationFrame(animate);}
+ function setPlaying(value:boolean){playing=value;onPlaying(value);render();schedule();}
  function stop(){setPlaying(false);}
- controls.addEventListener('start',stop);controls.addEventListener('change',render);
+ function interactionStart(){interacting=true;stop();schedule();}
+ function interactionEnd(){interacting=false;controls.update();render();}
+ controls.addEventListener('start',interactionStart);controls.addEventListener('end',interactionEnd);controls.addEventListener('change',render);
  function resize(){ const width=host.clientWidth,height=host.clientHeight;renderer.setSize(width,height);camera.aspect=width/height;camera.updateProjectionMatrix();controls.handleResize();render(); }
  const sizeObserver=new ResizeObserver(resize);sizeObserver.observe(host);
- const visibility=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible)render();});visibility.observe(host);
+ const visibility=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible){render();schedule();}});visibility.observe(host);
+ function tabVisibility(){if(!document.hidden){render();schedule();}}
+ document.addEventListener('visibilitychange',tabVisibility);
  function motionChange(){if(reduced.matches)setPlaying(false);}
  reduced.addEventListener('change',motionChange);
  function contextLost(event:Event){event.preventDefault();setPlaying(false);onError();}
  renderer.domElement.addEventListener('webglcontextlost',contextLost);
- function animate(time:number){ if(dead)return;frame=requestAnimationFrame(animate);const delta=Math.min((time-last)/1000,.05);last=time;if(!visible||document.hidden)return;controls.update();if(playing){board.rotation.y+=delta*.16;render();} }
- resize();controls.update();render();frame=requestAnimationFrame(animate);
+ function animate(time:number){frame=0;if(dead||!visible||document.hidden)return;const delta=Math.min((time-last)/1000,.05);last=time;controls.update();if(playing){board.rotation.y+=delta*.16;render();}schedule();}
+ resize();controls.update();render();
  return {
   setPlaying,
   rotate(x,y){stop();board.rotateX(x);board.rotateY(y);render();},
   flip(){stop();board.rotateX(Math.PI);render();},
   zoom(factor){stop();const direction=camera.position.clone().sub(controls.target);direction.setLength(THREE.MathUtils.clamp(direction.length()*factor,8,27));camera.position.copy(controls.target).add(direction);controls.update();render();},
   reset(){stop();board.rotation.set(0,0,0);controls.reset();camera.position.set(8,11,13);controls.update();render();},
-  dispose(){dead=true;cancelAnimationFrame(frame);sizeObserver.disconnect();visibility.disconnect();reduced.removeEventListener('change',motionChange);controls.removeEventListener('start',stop);controls.removeEventListener('change',render);controls.dispose();const geometries=new Set<THREE.BufferGeometry>(),materials=new Set<THREE.Material>(),textures=new Set<THREE.Texture>();scene.traverse(object=>{if(object instanceof THREE.Mesh||object instanceof THREE.Line){geometries.add(object.geometry);for(const material of Array.isArray(object.material)?object.material:[object.material]){materials.add(material);if('map' in material && material.map instanceof THREE.Texture)textures.add(material.map);}}});geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());renderer.dispose();renderer.domElement.remove();}
+  dispose(){dead=true;cancelAnimationFrame(frame);sizeObserver.disconnect();visibility.disconnect();document.removeEventListener('visibilitychange',tabVisibility);reduced.removeEventListener('change',motionChange);controls.removeEventListener('start',interactionStart);controls.removeEventListener('end',interactionEnd);controls.removeEventListener('change',render);renderer.domElement.removeEventListener('webglcontextlost',contextLost);controls.dispose();const geometries=new Set<THREE.BufferGeometry>(),materials=new Set<THREE.Material>(),textures=new Set<THREE.Texture>();scene.traverse(object=>{if(object instanceof THREE.Mesh||object instanceof THREE.Line){geometries.add(object.geometry);for(const material of Array.isArray(object.material)?object.material:[object.material]){materials.add(material);if('map' in material && material.map instanceof THREE.Texture)textures.add(material.map);}}});geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());renderer.dispose();renderer.domElement.remove();}
  };
 }
