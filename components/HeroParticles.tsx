@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-type Particle = { homeX: number; homeY: number; x: number; y: number; seed: number; lime: boolean; halo: boolean };
+type Particle = { homeX: number; homeY: number; x: number; y: number; seed: number; lime: boolean };
 
 export default function HeroParticles() {
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -33,26 +33,24 @@ export default function HeroParticles() {
       if (!preference.matches) return;
       const time = elapsed / 1000;
       const target = pointer || { x: width * .5 + Math.sin(time * .36) * width * .055, y: height * .49 + Math.cos(time * .42) * 18 };
-      center.x += (target.x - center.x) * Math.min(.22 * step, 1);
-      center.y += (target.y - center.y) * Math.min(.22 * step, 1);
-      const radius = Math.min(width * .12, height * .22, 78) + Math.sin(time * 1.25) * 4;
+      center.x += (target.x - center.x) * Math.min(.075 * step, 1);
+      center.y += (target.y - center.y) * Math.min(.075 * step, 1);
+      const radius = Math.min(width * .22, height * .39, 195) + Math.sin(time * 1.25) * 9;
       context!.lineCap = 'round';
       particles.forEach(particle => {
-        const homeX = particle.halo ? center.x + particle.homeX * radius : particle.homeX;
-        const homeY = particle.halo ? center.y + particle.homeY * radius : particle.homeY;
-        const dx = homeX - center.x;
-        const dy = homeY - center.y;
+        const dx = particle.homeX - center.x;
+        const dy = particle.homeY - center.y;
         const distance = Math.hypot(dx, dy) || 1;
         const radialX = dx / distance;
         const radialY = dy / distance;
-        const band = Math.exp(-Math.pow((distance - radius) / 22, 2));
+        const band = Math.exp(-Math.pow((distance - radius) / 32, 2));
         const inner = Math.max(0, 1 - distance / radius);
-        const scatter = band * 18 + inner * 10;
-        const curl = Math.sin(time * .8 + particle.seed * 6) * band * 7;
-        const targetX = homeX + radialX * scatter - radialY * curl;
-        const targetY = homeY + radialY * scatter + radialX * curl;
-        particle.x += (targetX - particle.x) * Math.min(.23 * step, 1);
-        particle.y += (targetY - particle.y) * Math.min(.23 * step, 1);
+        const scatter = band * 55 + inner * 38;
+        const curl = Math.sin(time * .8 + particle.seed * 6) * band * 13;
+        const targetX = particle.homeX + radialX * scatter - radialY * curl;
+        const targetY = particle.homeY + radialY * scatter + radialX * curl;
+        particle.x += (targetX - particle.x) * Math.min(.13 * step, 1);
+        particle.y += (targetY - particle.y) * Math.min(.13 * step, 1);
         const angle = Math.atan2(dy, dx) + Math.sin(time + particle.seed * 10) * .28;
         const length = 1.4 + band * (4 + particle.seed * 3);
         const halfX = Math.cos(angle) * length / 2;
@@ -99,20 +97,15 @@ export default function HeroParticles() {
       surface!.height = Math.round(height * ratio);
       context!.setTransform(ratio, 0, 0, ratio, 0, 0);
       center = { x: width / 2, y: height / 2 };
-      const count = Math.min(1700, Math.max(300, Math.round(width * height / 260)));
-      const haloCount = Math.min(320, Math.round(count * .24));
-      const fieldCount = count - haloCount;
-      const columns = Math.ceil(Math.sqrt(fieldCount * width / Math.max(height, 1)));
-      const rows = Math.ceil(fieldCount / columns);
+      const count = Math.min(900, Math.max(200, Math.round(width * height / 480)));
+      const columns = Math.ceil(Math.sqrt(count * width / Math.max(height, 1)));
+      const rows = Math.ceil(count / columns);
       let seed = 19;
       function random() { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }
       for (let index = 0; index < count; index++) {
-        const halo = index >= fieldCount;
-        const angle = random() * Math.PI * 2;
-        const orbit = .65 + random() * .7;
-        const homeX = halo ? Math.cos(angle) * orbit : ((index % columns) + .15 + random() * .7) * width / columns;
-        const homeY = halo ? Math.sin(angle) * orbit : (Math.floor(index / columns) + .15 + random() * .7) * height / rows;
-        particles.push({ homeX, homeY, x: halo ? center.x + homeX * 78 : homeX, y: halo ? center.y + homeY * 78 : homeY, seed: random(), lime: index % 5 === 0, halo });
+        const homeX = ((index % columns) + .15 + random() * .7) * width / columns;
+        const homeY = (Math.floor(index / columns) + .15 + random() * .7) * height / rows;
+        particles.push({ homeX, homeY, x: homeX, y: homeY, seed: random(), lime: index % 5 === 0 });
       }
       paint();
       schedule();
