@@ -18,7 +18,7 @@ On 21 November 2026, the public homepage returned HTTP 200, but its robots meta 
 
 ## Owner account steps after deployment
 
-1. Add this exact HTTPS origin to Google Search Console and Bing Webmaster Tools. Supply the corresponding HTML verification values using `GOOGLE_SITE_VERIFICATION` and `BING_SITE_VERIFICATION`, or use the verification method offered by the account. No verification tokens were invented.
+1. Add this exact HTTPS origin as a URL-prefix property in Google Search Console. The supplied Google HTML tag is included through Next.js metadata, and the supplied file is served unchanged at `/googlec43bdcdc12343dec.html`. After deploying, choose HTML tag or HTML file verification and click Verify. Keep the tag and file in place for periodic ownership checks. `GOOGLE_SITE_VERIFICATION` can override the supplied tag; Bing verification still requires a supplied `BING_SITE_VERIFICATION` value. Google Analytics is an alternative verification method and is not installed by this change.
 2. Submit `https://sentinel-ot-website-test.vercel.app/sitemap.xml` in both accounts. Use their URL inspection tools to request indexing of Home, Product, Research and About.
 3. Check Vercel deployment protection, any CDN firewall and bot controls. Public pages must be reachable by genuine crawlers without login or a challenge. A user-agent-only probe does not verify every crawler IP.
 4. Monitor indexing, crawl errors, actual search impressions and referral traffic. An analytics account is not connected by this implementation; no volumes, rankings or AI mention scores have been measured.
