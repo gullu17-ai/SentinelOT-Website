@@ -98,3 +98,7 @@ The default build retains native Next.js deployment for Vercel. To refresh the l
 The four public pages include canonical/social metadata and JSON-LD for the research team, website, software and individual pages. Product FAQs use the same source for visible answers and FAQ structured data. `/llms.txt` provides an optional plain-text project summary; it is not a ranking requirement or a promise of AI citations. The product remains described as a research prototype.
 
 Run `node scripts/verify-indexing.cjs`, build the optional static export, then run `python3 scripts/verify-export.py`. These checks cover production/preview indexing policy, canonical origin, structured data, FAQ agreement, sitemap and the absence of robots.txt. Search Console and Bing Webmaster ownership verification and sitemap submission require the owner's accounts; see `docs/SEARCH-DISCOVERY.md`. No search-volume, ranking or AI-visibility measurements are claimed.
+
+## Framework security maintenance
+
+Next.js is pinned to `16.4.6`, including the November 2026 security fixes, with matching compiler packages recorded in `pnpm-lock.yaml`. Use a frozen-lockfile install for deployment and rerun the production dependency audit after updates. The public website remains separate from the Flask monitoring project.

@@ -126,3 +126,11 @@ The initial build stopped with a Next.js security advisory; its requested retry 
 ## Rainbow shimmer update
 
 Increased the particle ceiling from 700 to 900 and tightened the distribution spacing. The active ring and green accent particles now cycle through a cached rainbow palette using animation time and position. Existing 30fps, pixel-ratio, visibility, pause and reduced-motion limits remain. TypeScript checking passed; the desktop preview showed the rainbow ring, no horizontal overflow and working Pause/Play state changes.
+
+## Next.js security patch — 21 November 2026
+
+Upgraded Next.js from 16.4.3 to exact version 16.4.6; updated the corresponding environment and platform compiler packages in the lockfile. Other dependencies retain their existing versions. A frozen-lockfile install completed. `pnpm audit --prod --json` reported zero known vulnerabilities across all severity levels for the resolved production dependencies. This advisory snapshot is not proof that the application has no security weaknesses.
+
+Package downloads initially failed through the bundled client. The two large packages were downloaded from the official npm registry, checked against its SHA-512 integrity values and supplied through a temporary localhost endpoint for installation. The endpoint was stopped afterward; package.json and pnpm-lock.yaml contain no local download references.
+
+The patched production static build completed with exit code 0 and no security fatal error. The export verifier passed all four pages and 143 local references; indexing policy checks passed. Google verification files/tags and the updated team content were retained. Browser smoke checks found no broken images or horizontal overflow on desktop, and the menu opened/closed at 390px without horizontal overflow.
