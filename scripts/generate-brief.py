@@ -103,7 +103,6 @@ text(44,631,'Talk to the team',17,'Bold')
 people=[
 ('Muhammad Abdullah','Project Lead & OT Security','i232064@isb.nu.edu.pk','Primary contact'),
 ('Usman Khan','Platform & Dashboard Development','i232069@isb.nu.edu.pk','Primary contact'),
-('Momin Amin','Industrial Lab & Integration','i232081@isb.nu.edu.pk','Additional contact')
 ]
 for i,(name,role,email,label) in enumerate(people):
     y=666+i*37

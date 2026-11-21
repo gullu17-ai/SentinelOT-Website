@@ -26,9 +26,6 @@ Primary contacts:
 - Muhammad Abdullah — Project Lead & OT Security — i232064@isb.nu.edu.pk
 - Usman Khan — Platform & Dashboard Development — i232069@isb.nu.edu.pk
 
-Additional contact:
-- Momin Amin — Industrial Lab & Integration — i232081@isb.nu.edu.pk
-
 Public-facing roles reflect the user's approved titles. They do not rewrite historical contribution records in the monitoring project.
 
 ## Publication

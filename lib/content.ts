@@ -10,7 +10,6 @@ export const captureEvidence = {
 export const team = [
   { name: 'Muhammad Abdullah', role: 'Project Lead & OT Security', email: 'i232064@isb.nu.edu.pk', primary: true },
   { name: 'Usman Khan', role: 'Platform & Dashboard Development', email: 'i232069@isb.nu.edu.pk', primary: true },
-  { name: 'Momin Amin', role: 'Industrial Lab & Integration', email: 'i232081@isb.nu.edu.pk', primary: false },
 ];
 export const capabilities = [
   { id: 'monitoring', title: 'Passive monitoring', benefit: 'Observe without getting in the way.', summary: 'Inspect a copy of HMI and PLC communications, without becoming part of the control path.', detail: 'A switch mirror port or network TAP feeds copied traffic to the sensor. Normal monitoring is passive; SentinelOT does not block control commands.' },

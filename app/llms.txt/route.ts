@@ -13,7 +13,7 @@ SentinelOT provides passive industrial traffic monitoring, observed asset discov
 - [Overview](${siteUrl}/): Project identity, capabilities and product screenshots.
 - [Product](${siteUrl}/product/): Dashboard views, protocol scope, proposed architecture and common questions.
 - [Research](${siteUrl}/research/): Evidence, dataset boundaries, limitations and roadmap.
-- [Team and contact](${siteUrl}/about/): Muhammad Abdullah, Usman Khan and Momin Amin; approved contact details.
+- [Team and contact](${siteUrl}/about/): Muhammad Abdullah and Usman Khan; approved contact details.
 
 ## Scope and limitations
 The four in-scope protocols are Modbus TCP, Siemens S7comm, DNP3 and EtherNet/IP/CIP. Scope does not imply every protocol operation is supported. The current product is a research prototype, not a production-ready deployment. Raspberry Pi hardware deployment and machine-learning anomaly detection remain roadmap items. Intended industrial applications are not verified customer deployments.

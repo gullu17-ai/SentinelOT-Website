@@ -37,7 +37,7 @@ The deployable static files are in `out/`. The verification helper checks intern
 - `/about/`: team roles and direct email contact links.
 - `/downloads/sentinelot-product-brief.pdf`: two-page customer/investor brief.
 
-Public-facing roles and email mappings were approved by the user. Abdullah and Usman are primary contacts; Momin is an additional contact. There is no contact form or backend.
+Public-facing roles and email mappings were approved by the user. Abdullah and Usman are the website’s listed team members and primary contacts. There is no contact form or backend.
 
 How it works uses the HMI, managed switch, PLC and Raspberry Pi case images from the existing FYP poster. The diagram shows a proposed physical setup, with copied capture traffic and separate management access. The current lab remains virtual; target-hardware deployment is planned. Image provenance is recorded in the asset register.
 
