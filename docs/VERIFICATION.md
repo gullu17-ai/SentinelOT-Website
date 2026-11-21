@@ -134,3 +134,7 @@ Upgraded Next.js from 16.4.3 to exact version 16.4.6; updated the corresponding 
 Package downloads initially failed through the bundled client. The two large packages were downloaded from the official npm registry, checked against its SHA-512 integrity values and supplied through a temporary localhost endpoint for installation. The endpoint was stopped afterward; package.json and pnpm-lock.yaml contain no local download references.
 
 The patched production static build completed with exit code 0 and no security fatal error. The export verifier passed all four pages and 143 local references; indexing policy checks passed. Google verification files/tags and the updated team content were retained. Browser smoke checks found no broken images or horizontal overflow on desktop, and the menu opened/closed at 390px without horizontal overflow.
+
+## Compact, denser pointer dispersion
+
+Raised the total particle cap to 1,700, including up to 320 dedicated halo particles. Tightened the ring base radius to 78px, reduced outward displacement and increased tracking response. Desktop screenshots confirmed that the compact rainbow halo follows the pointer on both sides of the hero. Pause/Play toggled correctly, and the hero pixels remained identical across two paused captures. TypeScript and diff checks passed. The existing 30fps, visibility, pixel-ratio, coarse-pointer and reduced-motion controls remain.
