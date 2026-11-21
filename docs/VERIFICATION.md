@@ -134,3 +134,15 @@ Upgraded Next.js from 16.4.3 to exact version 16.4.6; updated the corresponding 
 Package downloads initially failed through the bundled client. The two large packages were downloaded from the official npm registry, checked against its SHA-512 integrity values and supplied through a temporary localhost endpoint for installation. The endpoint was stopped afterward; package.json and pnpm-lock.yaml contain no local download references.
 
 The patched production static build completed with exit code 0 and no security fatal error. The export verifier passed all four pages and 143 local references; indexing policy checks passed. Google verification files/tags and the updated team content were retained. Browser smoke checks found no broken images or horizontal overflow on desktop, and the menu opened/closed at 390px without horizontal overflow.
+
+## Flowing particle reference study
+
+Inspected the live Antigravity homepage and its public MainParticlesComponent module. Its WebGL renderer failed to initialize in the preview browser, preventing direct visual motion comparison. The SentinelOT implementation independently uses Canvas 2D: an irregular breathing ring, a denser jittered field, low-frequency flow, damped spring return and gradual pointer tracking. No reference shader or external runtime was copied. Rainbow colours and existing pause, 30fps, visibility, DPR and reduced-motion controls remain.
+
+Local TypeScript and diff checks passed. Desktop and 390px previews had no horizontal overflow; pointer movement shifted the field, Pause/Play worked, and two paused hero captures were pixel-identical. This is a reference-inspired approximation, not a verified pixel-identical reproduction.
+
+The production static build completed successfully. Export checks passed all four pages and 143 local references. The user approved this visual revision for GitHub and Vercel deployment.
+
+## Particle visibility adjustment
+
+Increased canvas opacity from .75 to .9, raised ambient particle opacity from .12 to .24, and increased dash length and stroke weight. The rainbow palette is slightly darker and more saturated for visibility on white. The existing flow simulation and accessibility controls are unchanged. The production build and export checks passed; the refreshed browser preview confirmed opacity .9 and no horizontal overflow. This adjustment is included in the approved deployment.

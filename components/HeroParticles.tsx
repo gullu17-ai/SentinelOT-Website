@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-type Particle = { homeX: number; homeY: number; x: number; y: number; seed: number; lime: boolean };
+type Particle = { homeX: number; homeY: number; x: number; y: number; seed: number; lime: boolean; vx: number; vy: number; activity: number };
 
 export default function HeroParticles() {
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -16,7 +16,7 @@ export default function HeroParticles() {
     const context = surface.getContext('2d');
     if (!context) return;
     const preference = window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
-    const shimmer = Array.from({ length: 360 }, (_, hue) => `hsl(${hue}, 72%, 42%)`);
+    const shimmer = Array.from({ length: 360 }, (_, hue) => `hsl(${hue}, 76%, 38%)`);
     let particles: Particle[] = [];
     let frame = 0;
     let width = 0;
@@ -33,32 +33,40 @@ export default function HeroParticles() {
       if (!preference.matches) return;
       const time = elapsed / 1000;
       const target = pointer || { x: width * .5 + Math.sin(time * .36) * width * .055, y: height * .49 + Math.cos(time * .42) * 18 };
-      center.x += (target.x - center.x) * Math.min(.075 * step, 1);
-      center.y += (target.y - center.y) * Math.min(.075 * step, 1);
-      const radius = Math.min(width * .22, height * .39, 195) + Math.sin(time * 1.25) * 9;
+      const follow = 1 - Math.pow(.95, step);
+      center.x += (target.x - center.x) * follow;
+      center.y += (target.y - center.y) * follow;
+      const radius = Math.min(width * .18, height * .37, 165) + Math.sin(time * .8) * 15 + Math.cos(time * 1.7) * 7;
+      const damping = Math.pow(.82, step);
       context!.lineCap = 'round';
       particles.forEach(particle => {
         const dx = particle.homeX - center.x;
         const dy = particle.homeY - center.y;
         const distance = Math.hypot(dx, dy) || 1;
-        const radialX = dx / distance;
-        const radialY = dy / distance;
-        const band = Math.exp(-Math.pow((distance - radius) / 32, 2));
-        const inner = Math.max(0, 1 - distance / radius);
-        const scatter = band * 55 + inner * 38;
-        const curl = Math.sin(time * .8 + particle.seed * 6) * band * 13;
-        const targetX = particle.homeX + radialX * scatter - radialY * curl;
-        const targetY = particle.homeY + radialY * scatter + radialX * curl;
-        particle.x += (targetX - particle.x) * Math.min(.13 * step, 1);
-        particle.y += (targetY - particle.y) * Math.min(.13 * step, 1);
-        const angle = Math.atan2(dy, dx) + Math.sin(time + particle.seed * 10) * .28;
-        const length = 1.4 + band * (4 + particle.seed * 3);
-        const halfX = Math.cos(angle) * length / 2;
-        const halfY = Math.sin(angle) * length / 2;
-        context!.globalAlpha = .07 + band * .76 + inner * .07;
-        const hue = Math.floor((110 + time * 24 + Math.atan2(dy, dx) * 180 / Math.PI + particle.seed * 35 + 360) % 360);
-        context!.strokeStyle = particle.lime || band > .16 ? shimmer[hue] : '#397c79';
-        context!.lineWidth = .9 + band * .65;
+        const angle = Math.atan2(dy, dx);
+        const edge = radius + Math.sin(angle * 3 + time * .55) * 13 + Math.cos(angle * 5 - time * .35) * 6;
+        const band = Math.exp(-Math.pow((distance - edge) / 30, 2));
+        const inner = Math.max(0, 1 - distance / Math.max(edge, 1));
+        const flowX = Math.sin(particle.homeY * .014 + time * .35) + Math.cos(particle.homeX * .009 + time * .21 + particle.seed);
+        const flowY = Math.cos(particle.homeX * .012 - time * .29) + Math.sin(particle.homeY * .008 + time * .26 + particle.seed);
+        const scatter = band * (25 + flowX * 8) + inner * 18;
+        const curl = band * flowY * 14 + inner * flowX * 6;
+        const targetX = particle.homeX + dx / distance * scatter - dy / distance * curl + flowX * 6;
+        const targetY = particle.homeY + dy / distance * scatter + dx / distance * curl + flowY * 6;
+        particle.vx = (particle.vx + (targetX - particle.x) * .022 * step) * damping;
+        particle.vy = (particle.vy + (targetY - particle.y) * .022 * step) * damping;
+        particle.x += particle.vx * step;
+        particle.y += particle.vy * step;
+        particle.activity += (Math.min(1, band + inner * .18) - particle.activity) * Math.min(.1 * step, 1);
+        const heading = angle + flowX * .6 + Math.atan2(particle.vy, particle.vx) * .2;
+        const speed = Math.min(Math.hypot(particle.vx, particle.vy), 3);
+        const length = 1.7 + particle.seed + particle.activity * (2.5 + speed * .9);
+        const halfX = Math.cos(heading) * length / 2;
+        const halfY = Math.sin(heading) * length / 2;
+        context!.globalAlpha = .24 + particle.activity * .7;
+        const hue = Math.floor(((110 + time * 12 + angle * 180 / Math.PI + flowX * 30 + particle.seed * 50) % 360 + 360) % 360);
+        context!.strokeStyle = particle.lime || particle.activity > .12 ? shimmer[hue] : '#397c79';
+        context!.lineWidth = 1.1 + particle.activity * .65;
         context!.beginPath();
         context!.moveTo(particle.x - halfX, particle.y - halfY);
         context!.lineTo(particle.x + halfX, particle.y + halfY);
@@ -97,7 +105,7 @@ export default function HeroParticles() {
       surface!.height = Math.round(height * ratio);
       context!.setTransform(ratio, 0, 0, ratio, 0, 0);
       center = { x: width / 2, y: height / 2 };
-      const count = Math.min(900, Math.max(200, Math.round(width * height / 480)));
+      const count = Math.min(1800, Math.max(240, Math.round(width * height / 300)));
       const columns = Math.ceil(Math.sqrt(count * width / Math.max(height, 1)));
       const rows = Math.ceil(count / columns);
       let seed = 19;
@@ -105,7 +113,7 @@ export default function HeroParticles() {
       for (let index = 0; index < count; index++) {
         const homeX = ((index % columns) + .15 + random() * .7) * width / columns;
         const homeY = (Math.floor(index / columns) + .15 + random() * .7) * height / rows;
-        particles.push({ homeX, homeY, x: homeX, y: homeY, seed: random(), lime: index % 5 === 0 });
+        particles.push({ homeX, homeY, x: homeX, y: homeY, seed: random(), lime: index % 5 === 0, vx: 0, vy: 0, activity: 0 });
       }
       paint();
       schedule();
