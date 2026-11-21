@@ -16,6 +16,7 @@ export default function HeroParticles() {
     const context = surface.getContext('2d');
     if (!context) return;
     const preference = window.matchMedia('(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)');
+    const shimmer = Array.from({ length: 360 }, (_, hue) => `hsl(${hue}, 72%, 42%)`);
     let particles: Particle[] = [];
     let frame = 0;
     let width = 0;
@@ -55,7 +56,8 @@ export default function HeroParticles() {
         const halfX = Math.cos(angle) * length / 2;
         const halfY = Math.sin(angle) * length / 2;
         context!.globalAlpha = .07 + band * .76 + inner * .07;
-        context!.strokeStyle = particle.lime ? '#8ca819' : '#397c79';
+        const hue = Math.floor((110 + time * 24 + Math.atan2(dy, dx) * 180 / Math.PI + particle.seed * 35 + 360) % 360);
+        context!.strokeStyle = particle.lime || band > .16 ? shimmer[hue] : '#397c79';
         context!.lineWidth = .9 + band * .65;
         context!.beginPath();
         context!.moveTo(particle.x - halfX, particle.y - halfY);
@@ -95,7 +97,7 @@ export default function HeroParticles() {
       surface!.height = Math.round(height * ratio);
       context!.setTransform(ratio, 0, 0, ratio, 0, 0);
       center = { x: width / 2, y: height / 2 };
-      const count = Math.min(700, Math.max(160, Math.round(width * height / 650)));
+      const count = Math.min(900, Math.max(200, Math.round(width * height / 480)));
       const columns = Math.ceil(Math.sqrt(count * width / Math.max(height, 1)));
       const rows = Math.ceil(count / columns);
       let seed = 19;
