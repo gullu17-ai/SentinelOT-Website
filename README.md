@@ -75,11 +75,11 @@ The bundled Codex Python runtime contains ReportLab on this computer.
 
 ## Remaining media and production configuration
 
-See `docs/ASSET-AND-EVIDENCE-REGISTER.md`. Still needed: a verified demo MP4, poster, reviewed captions/transcript and a confirmed public production domain. Team portraits are optional. All five product views now have genuine captures taken from the running dashboard on 15 November 2026, including Vulnerabilities. They show retained lab data with the Data Stale indicator preserved; this is not fresh traffic validation. Capture sources and file hashes are recorded in `docs/SCREENSHOT-CAPTURES-2026-11-15.md`.
+See `docs/ASSET-AND-EVIDENCE-REGISTER.md`. Still needed: a verified demo MP4, poster and reviewed captions/transcript. Team portraits are optional. All five product views now have genuine captures taken from the running dashboard on 15 November 2026, including Vulnerabilities. They show retained lab data with the Data Stale indicator preserved; this is not fresh traffic validation. Capture sources and file hashes are recorded in `docs/SCREENSHOT-CAPTURES-2026-11-15.md`.
 
 `lib/content.ts` contains the optional `demoMedia` configuration. Enable it only after supplying all four media/transcript inputs. The player supports native playback controls, captions and transcript; no video is currently advertised as available.
 
-Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_SITE_URL` to the confirmed production HTTPS origin before publication. Without it, metadata uses the existing private preview origin and deliberately remains noindex. Each page has a canonical URL, sharing metadata, and inclusion in the sitemap.
+The confirmed public origin is `https://sentinel-ot-website-test.vercel.app`. Canonical URLs, social previews, structured data, project facts and the sitemap use that origin by default. Override `NEXT_PUBLIC_SITE_URL` only when moving to another confirmed domain. Production pages allow indexing; Vercel previews, development and explicit `SENTINELOT_NOINDEX=1` opt out. `robots.txt` has been removed at the owner’s request.
 
 ## Notes
 
@@ -92,3 +92,9 @@ Copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_SITE_URL` to the confir
 ## Vercel and optional static preview
 
 The default build retains native Next.js deployment for Vercel. To refresh the local static preview, run `SENTINELOT_STATIC_EXPORT=1 node node_modules/next/dist/bin/next build --webpack`, followed by `python3 scripts/verify-export.py`. The default build can be checked with `node node_modules/next/dist/bin/next build --webpack`. Former page URLs redirect to the corresponding Product, Research or About sections.
+
+## Search and AI discovery
+
+The four public pages include canonical/social metadata and JSON-LD for the research team, website, software and individual pages. Product FAQs use the same source for visible answers and FAQ structured data. `/llms.txt` provides an optional plain-text project summary; it is not a ranking requirement or a promise of AI citations. The product remains described as a research prototype.
+
+Run `node scripts/verify-indexing.cjs`, build the optional static export, then run `python3 scripts/verify-export.py`. These checks cover production/preview indexing policy, canonical origin, structured data, FAQ agreement, sitemap and the absence of robots.txt. Search Console and Bing Webmaster ownership verification and sitemap submission require the owner's accounts; see `docs/SEARCH-DISCOVERY.md`. No search-volume, ranking or AI-visibility measurements are claimed.

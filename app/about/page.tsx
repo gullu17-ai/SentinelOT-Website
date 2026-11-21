@@ -1,9 +1,11 @@
+import PageSchema from '@/components/PageSchema';
 import { pageMetadata } from '@/lib/metadata';
 import { Arrow, BriefLink } from '@/components/Site';
 import { team } from '@/lib/content';
-export const metadata = pageMetadata('About & contact', 'Meet Muhammad Abdullah, Usman Khan and Momin Amin, the team developing SentinelOT at FAST NUCES Islamabad.', '/about/');
+export const metadata = pageMetadata('Team & Contact', 'Meet Muhammad Abdullah, Usman Khan and Momin Amin, the team developing SentinelOT at FAST NUCES Islamabad.', '/about/');
 export default function About() {
   return <>
+    <PageSchema name="Team & Contact" path="/about/" description="The SentinelOT research team at FAST NUCES Islamabad and approved contact details." />
     <section className="page-intro shell"><p className="eyebrow">The people behind SentinelOT</p><h1>Built from research.<br />Driven by the process.</h1><p>We’re a team at FAST NUCES Islamabad exploring how industrial monitoring can stay local, understandable and practical.</p></section>
     <section className="about-mission"><div className="shell research-teaser"><p className="eyebrow">Why we’re building</p><div><h2>Industrial visibility,<br />closer to the source.</h2><p className="lead">Understanding a control network shouldn’t depend on a constant cloud connection.</p><p>SentinelOT brings observed assets, industrial protocol events, rule-based alerts and offline vulnerability context into a local monitoring workflow. Our focus is evidence an operator can inspect and decisions they can explain.</p><p>Today, that work is a research prototype in an isolated lab. The next step is careful hardware and field validation.</p></div></div></section>
     <section className="section shell" id="team"><div className="section-heading"><div><p className="eyebrow">The team</p><h2>Meet the builders.</h2></div><p>Three complementary areas of focus, working toward the same industrial monitoring platform.</p></div><div className="team-grid">{team.map((person,i) => <article key={person.email}><span className="index">0{i+1}</span><h3>{person.name}</h3><p className="team-role">{person.role}</p><a href={`mailto:${person.email}`}>{person.email} <Arrow /></a></article>)}</div><p className="affiliation">Research project · FAST NUCES Islamabad</p></section>

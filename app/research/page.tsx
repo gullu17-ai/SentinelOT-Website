@@ -1,7 +1,8 @@
+import PageSchema from '@/components/PageSchema';
 import { pageMetadata } from '@/lib/metadata';
 import Link from 'next/link';
 import { Arrow, BriefLink, ContactBand } from '@/components/Site';
-export const metadata = pageMetadata('Research & evidence', 'The research behind SentinelOT: protocol semantics, configurable rules, dataset validation and transparent limitations.', '/research/');
+export const metadata = pageMetadata('OT/ICS Security Research & Evidence', 'The research behind SentinelOT: protocol semantics, configurable rules, dataset validation and transparent limitations.', '/research/');
 const evidence = [
   ['Protocol semantics before labels', 'Detection uses decoded operations, request direction and configured thresholds. The goal is to connect an alert to the industrial action behind it. An authorized source does not prove operator intent; investigation still needs process context.'],
   ['Configurable, traceable rules', 'Rules express operations, allowlists and stateful conditions such as write bursts and communication gaps. Each rule identifier connects an alert to its logic. Thresholds require tuning to the site’s normal operating cycle.'],
@@ -10,6 +11,7 @@ const evidence = [
 ];
 export default function Research() {
   return <>
+    <PageSchema name="OT/ICS Security Research & Evidence" path="/research/" description="SentinelOT research methodology, protocol scope, evidence limitations and development roadmap." />
     <section className="page-intro shell"><p className="eyebrow">Research & evidence</p><h1>Show the evidence.<br />Make the limits clear.</h1><p>SentinelOT began at FAST NUCES Islamabad. We’re building toward practical industrial monitoring through transparent implementation and bounded validation.</p><div className="intro-actions"><BriefLink /><Link href="/about/" className="text-link">Meet the team <Arrow /></Link></div></section>
     <section className="research-status-section"><div className="shell status-layout"><p className="eyebrow">Development status</p><div><h2>A working prototype.<br />Further validation ahead.</h2><p>The end-to-end lab path connects passive capture, discovery, configurable detection rules, local vulnerability matching and dashboard evidence.</p><p className="small-copy">This is a research prototype. No production readiness, customer deployments or independent performance certification is claimed.</p></div></div></section>
     <section className="section shell"><div className="section-heading"><div><p className="eyebrow">The approach</p><h2>Built to be examined.</h2></div><p>Explainability means an operator can follow the evidence, question a match and understand the boundaries.</p></div><div className="evidence-list">{evidence.map(([title,body],i) => <article key={title}><span className="index">0{i+1}</span><h3>{title}</h3><p>{body}</p></article>)}</div></section>

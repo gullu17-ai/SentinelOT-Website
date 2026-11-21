@@ -1,5 +1,5 @@
-export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://sentinelot.org';
-export const isPublicSite = Boolean(process.env.NEXT_PUBLIC_SITE_URL);
+export const siteUrl = new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://sentinel-ot-website-test.vercel.app').origin;
+export const isPublicSite = process.env.VERCEL_ENV !== 'preview' && process.env.NODE_ENV !== 'development' && process.env.SENTINELOT_NOINDEX !== '1';
 export const captureEvidence = {
   date: '15 November 2026',
   caption: 'Captured 15 November 2026 · Running local prototype',
